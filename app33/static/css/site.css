@@ -1,0 +1,131 @@
+@import url(http://fonts.googleapis.com/css?family=Nobile:regular,bold&subset=latin);
+
+
+html {
+	background: url(/static/images/starsbg.png) top left repeat #235;
+}
+
+#topbar {
+	background-color: #002;
+	font-family: "Nobile", Helvetica, Arial, sans-serif;
+	font-size: 18px;
+	line-height: 36px;
+	height: 36px;
+	color: #fff;
+	text-align: right;
+	padding: 0 40px;
+	}
+
+#topbar a {
+	padding: 0 6px;
+	margin-right: 8px;
+	text-decoration: none;
+	color: #fff;
+	}
+
+#topbar a:hover {
+	text-shadow: #453 0 0 4px;
+	background-color: #efd;
+	color: #002
+	}
+
+#hd {
+	font-family: "Nobile", Helvetica, Arial, sans-serif;
+	height: 120px;
+	}
+
+.content-main {
+	width: 910px;
+	margin: 0 auto;
+	background-color: white;
+	padding: 5px;
+	border-radius: 5px;
+	}
+
+#logo33 {
+	text-decoration: none;
+	color: #efd;
+	text-shadow: #feb 0 0 12px;
+	font-size: 72px;
+	line-height: 110px;
+	font-family: "Nobile", Helvetica, Arial, sans-serif;
+	}
+
+#twitter_nod {
+	margin-top: 16px;
+	float: right;
+	color: #fff;
+	font-family: "Nobile", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	line-height: 20px;
+	width: 680px;
+	}
+
+#twitter_nod a {
+	padding: 0 4px;
+	text-decoration: none;
+	color: #fff;
+	/* font-style: italic; */
+	background-color: #124;
+	border-radius: 3px;
+	}
+
+#twitter_nod a:hover {
+	text-shadow: #feb 0 0 4px;
+	}
+
+ul#twitter_status_nod {
+	list-style-type:none;
+	list-style:none;
+	}
+
+ul#twitter_status_nod li {
+	list-style-type:none;
+	list-style:none;
+	}
+
+.block-main {
+	color: #111;
+	font-size: 18px;
+	border-bottom: 1px solid #235;
+	}
+
+.block-meta {
+	padding: 0;
+	display: inline-block;
+	height: 72px;
+	width: 70px;
+	font-size: 12px;
+	font-family: Helvetica, Arial, sans-serif;
+	margin-left: -80px;
+	vertical-align: middle;
+	}
+
+.block-meta .mon {
+	text-align: center;
+	color: #fff;
+	font-size: 16px;
+	padding: 0;
+	line-height: 20px;
+	}
+
+.block-meta .num {
+	font-size: 34px;
+	line-height: 32px;
+	padding: 0;
+	text-align: center;
+	color: #fff;
+	}
+
+.block-meta .year {
+	text-align: center;
+	color: #fff;
+	font-size: 16px;
+	padding: 0;
+	line-height: 20px;
+	}
+
+.block-main h2 {
+	font-size: 32px;
+	}
+

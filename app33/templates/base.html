@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<title>{% block title %}{% end %} . 33ad .</title>
+<link rel="stylesheet" type="text/css" href="/static/css/reset-fonts-grids.css">
+<link rel="stylesheet" type="text/css" href="/static/css/base.css">
+<link rel="stylesheet" type="text/css" href="/static/css/site.css">
+
+<script type="application/javascript" src="/static/js/blogger.js"></script>
+
+</head>
+
+<body>
+
+<div id="topbar" >
+
+<a href="/">home</a>
+<a href="/about">about</a>
+<a href="/pb">pastebin</a>
+
+</div>
+
+
+<div id="doc2" class="yui-t7">
+
+	<div id="hd">
+<a id="logo33" href="/"> 33ad </a>
+<div id="twitter_nod">
+<a href="http://twitter.com/nod">latest tweet from @nod</a><br/>
+<ul id="twitter_status_nod"></ul>
+</div>
+	</div>
+
+  <div id="bd">
+    <div id="yui-main">
+      <div class="yui-b">
+<div class="content-main">
+{% block content-main %}{% end %}
+</div>
+      </div>
+    </div>
+    <div class="yui-b">
+{% block content-under %}{% end %}
+    </div>
+  </div>
+  <div id="ft">
+{% block content-footer %}{% end %}
+  </div>
+</div>
+
+<script type="application/javascript" src="http://twitter.com/statuses/user_timeline/nod.json?callback=twitterCallback2&count=1"></script>
+
+</body>
+</html>
