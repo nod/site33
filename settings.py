@@ -2,7 +2,8 @@ from os import path
 
 # tornado specific
 torn_settings = dict(
-    dbposts = '/home/jeremy/.blog.db',
+    dbposts = '/tmp/blog.tokyo',
+    dbmeta = '/tmp/blogmeta.tokyo',
     port = 6488,
     db_name = "",
     db_uri  = "",

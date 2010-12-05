@@ -60,8 +60,8 @@ class BaseHandler(tornado.web.RequestHandler):
 
     def _handle_request_exception(self, e):
         tornado.web.RequestHandler._handle_request_exception(self,e)
-        import pdb
-        pdb.post_mortem()
+        # import pdb
+        # pdb.post_mortem()
 
 
 def async_yield(f):

@@ -1,5 +1,5 @@
 function twitterCallback2(twitters) {
-  var statusHTML = [];
+  var statusHTML = ['<a href="http://twitter.com/nod">latest tweet from @nod</a><br/>'];
   for (var i=0; i<twitters.length; i++){
     var username = twitters[i].user.screen_name;
     var status = twitters[i].text.replace(/((https?|s?ftp|ssh)\:\/\/[^"\s\<\>]*[^.,;'">\:\s\<\>\)\]\!])/g, function(url) {

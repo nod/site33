@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import re
+from json import dumps, loads
 
 import tokyo.cabinet as tc
 
@@ -31,20 +32,25 @@ class Blog(object):
 
     def __init__(self, dbpath, metapath, initialize=False):
         self._db = tc.TDB()
-        self._db.open(dbpath)
-	self._dbmeta = tc.HDB()
-	self._dbmeta.open(metapath, tc.TDBOCREAT)
+        self._db.open(dbpath,  tc.TDBOWRITER|tc.TDBOCREAT)
+        self._dbmeta = tc.HDB()
+        self._dbmeta.open(metapath, tc.TDBOWRITER|tc.TDBOCREAT)
         # check that we have desirable members and not an empty db
-        if initialize:
- 		self._dbmeta[key_Sorted] = []
+        if key_Sorted not in self._dbmeta:
+            self._create_sorted()
 
     def __del__(self):
         if self._db: self._db.close()
-	if self._dbmeta: self._dbmeta.close()
+        if self._dbmeta: self._dbmeta.close()
 
     def __iter__(self):
-        for p in self._db.get(key_Sorted, []):
-            yield self._db.get(p)
+        sorted_keys = loads(self._dbmeta[key_sorted])
+        for p in sorted_keys: yield self._db[p]
+
+    def _post(self, d):
+        d['date'] = datetime(*loads(d['date'])[:6])
+        d['tags'] = loads(d['tags'])
+        return d
 
     def __getitem__(self, key):
         """
@@ -54,21 +60,20 @@ class Blog(object):
         """
         if type(key) == slice:
             # slc = slice(*(key.indices(len(self._db.get(key_Sorted)))))
-            return (self._db[k] for k in self._db[key_Sorted][key])
+            slc = key
+            sorted_keys = loads(self._dbmeta[key_Sorted])
+            return (self._post(self._db[k]) for k in sorted_keys[slc])
         elif type(key) == int:
-            return self._db[self._db[key_Sorted][key]]
-        else: return self._db[key]
+            sorted_keys = loads(self._dbmeta[key_Sorted])
+            return self._post(self._db[sorted_keys[key]])
+        else: return self._post(self._db[key])
 
     def _create_sorted(self):
-        self._db[key_Sorted] = [ str(k['key']) for k in \
-            sorted(
-                filter(
-                    lambda x: type(x) == dict,
-                    self._db.values()
-                    ),
-                key = lambda p:p['date'],
-                reverse = True
-                ) ]
+        q = self._db.query()
+        q.sort('date', tc.TDBQOSTRDESC)
+        sorted_keys = self._db.metasearch((q,), tc.TDBMSUNION)
+        self._dbmeta[key_Sorted] = dumps(sorted_keys)
+        self._dbmeta.sync()
 
     def new(self, title, content, date=None, tags=None):
         slug = str(slugify(title))
@@ -76,13 +81,12 @@ class Blog(object):
         tmp = {
             'key': slug,
             'title': title,
-            'date': date or datetime.now(),
+            'date': dumps((date or datetime.now()).timetuple()[:]),
             'content': content,
-            'tags': tags or [],
+            'tags': dumps(tags or []),
             }
         db[slug] = tmp
         self._create_sorted()
-        self._db.sync()
         return tmp
 
     def remove_post(self, key):
