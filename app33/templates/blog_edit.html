@@ -1,0 +1,39 @@
+{% extends base.html %}
+
+{% block content-main %}
+
+<form method="POST">
+<div class="block-main">
+<h2> Edit </h2>
+
+<input type="submit" value="save" class="submit"/> <br/>
+
+edit password<br/>
+<input type="password" name="passwd" class="text"><br/>
+
+title <br/>
+<input class="text" type="text" name="_title" value="{{ post.get('title') }}"/> <br/>
+
+<textarea name="_content">
+{{post.get('content')}}
+</textarea> <br/>
+
+<input type="submit" value="save" class="submit"/>
+</form>
+
+
+<div style="background-color:#b55; padding:3px; width:520px;">
+<form method="POST">
+edit password<br/>
+<input type="password" name="passwd" class="text"><br/>
+<input type="hidden" name="delete" value="1"/>
+<input type="submit" value="delete post"/>
+</form>
+</div>
+
+
+</div>
+
+
+{% end %}
+

@@ -30,27 +30,44 @@ class BogusBlogDB(Exception): pass
 
 class Blog(object):
 
-    def __init__(self, dbpath, metapath, initialize=False):
+    def __init__(self, dbpath, metapath, writeable=False):
+        if writeable: flags =  tc.TDBOWRITER|tc.TDBOCREAT
+        else: flags =  tc.TDBOCREAT
+
         self._db = tc.TDB()
-        self._db.open(dbpath,  tc.TDBOWRITER|tc.TDBOCREAT)
+        self._db.open(dbpath, flags)
+
         self._dbmeta = tc.HDB()
-        self._dbmeta.open(metapath, tc.TDBOWRITER|tc.TDBOCREAT)
+        self._dbmeta.open(metapath, flags)
+
         # check that we have desirable members and not an empty db
         if key_Sorted not in self._dbmeta:
             self._create_sorted()
+
+    def __contains__(self, key):
+        return key in self._db
 
     def __del__(self):
         if self._db: self._db.close()
         if self._dbmeta: self._dbmeta.close()
 
     def __iter__(self):
-        sorted_keys = loads(self._dbmeta[key_sorted])
+        sorted_keys = loads(self._dbmeta[key_Sorted])
         for p in sorted_keys: yield self._db[p]
 
     def _post(self, d):
         d['date'] = datetime(*loads(d['date'])[:6])
         d['tags'] = loads(d['tags'])
         return d
+
+    def __setitem__(self, key, value):
+        """
+        assigns a dictionary to a key. this is dangerous right now...
+        you should use .new(...) for any new posts but if you're working on an
+        existing post, just assign it back and this will grab it and splat it
+        in place.
+        """
+        self.new(**value)
 
     def __getitem__(self, key):
         """
@@ -75,9 +92,10 @@ class Blog(object):
         self._dbmeta[key_Sorted] = dumps(sorted_keys)
         self._dbmeta.sync()
 
-    def new(self, title, content, date=None, tags=None):
-        slug = str(slugify(title))
-        while self._db.has_key(slug): slug += '_'
+    def new(self, title, content, date=None, tags=None, key=None):
+        slug = key or str(slugify(title))
+        if not key: # assume this is new
+            while slug in self._db: slug += '_'
         tmp = {
             'key': slug,
             'title': title,
@@ -85,7 +103,7 @@ class Blog(object):
             'content': content,
             'tags': dumps(tags or []),
             }
-        db[slug] = tmp
+        self._db[slug] = tmp
         self._create_sorted()
         return tmp
 

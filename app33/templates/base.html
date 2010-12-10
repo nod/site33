@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <meta name="keywords" content="">
 <meta name="description" content="">
-<title>{% block title %}{% end %} . 33ad .</title>
+<title>{% block title %}{% end %} 33ad</title>
 <link rel="stylesheet" type="text/css" href="/static/css/reset-fonts-grids.css">
 <link rel="stylesheet" type="text/css" href="/static/css/base.css">
 <link rel="stylesheet" type="text/css" href="/static/css/site.css">
@@ -24,19 +24,22 @@
 </div>
 
 
-<div id="doc2" class="yui-t7">
+<div id="doc" class="yui-t5">
 
 	<div id="hd">
-<div class="content-main">
+
+<div class="content-top">
 <a id="logo33" href="/"> 33ad </a>
 <div id="twitter_nod">
 <ul id="twitter_status_nod"></ul>
 </div>
 </div>
+
 	</div>
 
   <div id="bd">
     <div id="yui-main">
+
       <div class="yui-b">
 <div class="content-main">
 {% block content-main %}{% end %}
@@ -44,7 +47,7 @@
       </div>
     </div>
     <div class="yui-b">
-{% block content-under %}{% end %}
+{% block content-alt %}{% end %}
     </div>
   </div>
   <div id="ft">
@@ -52,7 +55,8 @@
   </div>
 </div>
 
-<script type="application/javascript" src="http://twitter.com/statuses/user_timeline/nod.json?callback=twitterCallback2&count=1"></script>
+
+<script type="application/javascript" src="http://search.twitter.com/search.json?q=from%3anod&rpp=1&callback=formatTweets" ></script>
 
 </body>
 </html>

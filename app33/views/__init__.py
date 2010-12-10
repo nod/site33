@@ -1,7 +1,7 @@
 
 from viewlib import route, BaseHandler, async_yield
 
-import index
+import blog
 
 
 @route('/yield')

@@ -1,0 +1,17 @@
+{% extends base.html %}
+
+{% block content-main %}
+
+<div class="block-main">
+<h2 class="block-hdr">
+<div class="block-meta">
+    <div class="mon">{{post['date'].strftime('%b')}}</div>
+    <div class="num">{{post['date'].strftime('%d')}}</div>
+    <div class="year">{{post['date'].year}}</div>
+    </div>
+{{post['title']}}
+</h2>
+{{markdown(post['content'])}}
+</div>
+
+{% end %}

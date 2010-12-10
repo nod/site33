@@ -1,0 +1,45 @@
+{% extends base.html %}
+
+{% block content-main %}
+
+{% for p in posts %}
+
+<div class="block-main">
+
+<h2 class="block-hdr">
+<div class="block-meta">
+    <div class="mon">{{p['date'].strftime('%b')}}</div>
+    <div class="num">{{p['date'].strftime('%d')}}</div>
+    <div class="year">{{p['date'].year}}</div>
+    </div>
+{{p['title']}}
+</h2>
+
+{{ markdown(p['content'][:700]) }}{% if len(p['content'])>700 %}...{% end %}
+
+<div class="block-ftr">
+<a href="/blog/{{ p['key'] }}">direct link</a>
+</div>
+
+</div>
+
+{% end %}
+
+{% end %}
+
+{% block content-alt %}
+
+<div class="block-alt">
+<h3> Projects </h3>
+
+<ul>
+<li><a href="http://github.com/nod/tornskel">
+    <span class="github">GITHUB</span>
+    Tornado Skeleton Project </a></li>
+</ul>
+
+
+</div>
+
+{% end %}
+
