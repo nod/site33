@@ -56,7 +56,10 @@ class Blog(object):
         for p in sorted_keys: yield self._db[p]
 
     def _post(self, d):
-        d['date'] = datetime(*loads(d['date'])[:6])
+        try:
+            d['date'] = datetime(*loads(d['date'])[:6])
+        except:
+            d['date'] = datetime.now()
         d['tags'] = loads(d['tags'])
         return d
 

@@ -21,7 +21,7 @@ title <br/>
 <input type="submit" value="save" class="submit"/>
 </form>
 
-
+{% if post.get('key') %}
 <div style="background-color:#b55; padding:3px; width:520px;">
 <form method="POST">
 edit password<br/>
@@ -30,7 +30,7 @@ edit password<br/>
 <input type="submit" value="delete post"/>
 </form>
 </div>
-
+{% end %}
 
 </div>
 
