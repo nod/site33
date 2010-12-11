@@ -1,0 +1,17 @@
+{% extends base.html %}
+
+{% block content-wide %}
+
+<form method="POST">
+<div class="block-main">
+<h2 class="block-hdr"> pastebin list </h2>
+
+<ul>
+{% for paste in pastes %}
+<li> <a href="http://33ad.org/pb/{{paste.key}}">{{paste.key}}</a> - {{ paste.created_at }} </li>
+{% end %}
+</ul>
+</div>
+
+{% end %}
+
