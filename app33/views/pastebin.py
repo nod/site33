@@ -42,11 +42,13 @@ class TDBMixin(object):
         db_.open(self._dbpath, flags)
         return db_
 
-    def dbsave(self, d):
+    def dbsave(self, d, db=None):
         assert type(d) is dict
+        if db: db_ = db
+        else: db_ = self.db(writable=True)
         if 'key' not in d:
             d['key'] = gen_key()
-        self.db(writable=True)[d['key']] = d
+        db_[d['key']] = d
 
 
 class Paste(object):
@@ -73,6 +75,18 @@ class Paste(object):
         d = self.__dict__.copy()
         d['created_at'] = self.created_at.isoformat()
         return d
+
+
+@route('/pb/__all')
+class AllHandler(BaseHandler, TDBMixin):
+
+    def prepare(self):
+        self._dbpath = '/tmp/pastebin.tokyo'
+
+    def get(self):
+        db_ = self.db()
+        pastes = (Paste(**db_[p]) for p in db_)
+        self.render('pastebin_all.html', pastes=pastes)
 
 
 @route('/pb/?(?P<pbkey>[a-zA-Z0-9]*)')
@@ -105,8 +119,11 @@ class IndexHandler(BaseHandler, TDBMixin):
             self.write('bogus hilite. back atcha, try again.')
             return
         p = Paste(text=text, hilite=hilite)
-        self.dbsave(p.to_d())
-
+        db_ = self.db(writable=True)
+        self.dbsave(p.to_d(), db_)
         self.redirect('/pb/%s' % p.key)
 
+        # let's go ahead and remove old ones now
+        # q = db_.query()
+        # q.sort('created_at', tc.TDBQOSTRASC)
 
