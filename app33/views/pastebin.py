@@ -1,6 +1,5 @@
 
 from datetime import datetime
-from markdown import Markdown
 from tokyo import cabinet as tc
 
 from useful import gen_key
@@ -68,7 +67,7 @@ class Paste(object):
             return highlight(
                 self.text,
                 lexer,
-                HtmlFormatter(linenos='inline') )
+                HtmlFormatter(linenos='inline', cssclass='codehilite') )
         else: return self.text.replace('<', '&lt;')
 
     def to_d(self):

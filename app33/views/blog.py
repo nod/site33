@@ -49,6 +49,7 @@ class BlogNewPost(BlogHandler):
             return self.finish()
         p = {'date':datetime.now()}
         p['title'] = self.get_argument('_title','')
+        p['tags'] = self.get_argument('_tags','').split(',')
         p['content'] = self.get_argument('_content','')
         blog_ = self.blog(writeable=True)
         post = blog_.new(**p)
@@ -61,7 +62,6 @@ class BlogPost(BlogHandler):
         blog = self.blog()
         if key in blog: post = blog[str(key)]
         else: post = {}
-        print "key",key,"post=",post
         self.render('blog_edit.html', post=post)
 
     def post(self, key):
@@ -80,6 +80,7 @@ class BlogPost(BlogHandler):
         else:
             p = {'date':datetime.now(), 'key':key}
         p['title'] = self.get_argument('_title','')
+        p['tags'] = self.get_argument('_tags','').split(',')
         p['content'] = self.get_argument('_content','')
         blog_[key] = p
         self.redirect('/blog/%s' % key)

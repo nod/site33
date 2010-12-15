@@ -6,15 +6,21 @@
 <div class="block-main">
 <h2> Edit </h2>
 
-edit password<br/>
-<input type="password" name="passwd" class="text"><br/>
 
 title <br/>
-<input class="text" type="text" name="_title" value="{{ post.get('title') }}"/> <br/>
+<input class="text" type="text" name="_title"
+    value="{{ post.get('title') or '' }}"/> <br/>
+
+tags (comma separated)<br/>
+<input class="text" type="text" name="_tags"
+    value="{{ post.get('tags') or '' }}"/> <br/>
 
 <textarea name="_content">
-{{post.get('content')}}
+{{ post.get('content') or '' }}
 </textarea> <br/>
+
+edit password<br/>
+<input type="password" name="passwd" class="text"><br/>
 
 <input type="submit" value="save" class="submit"/>
 </form>

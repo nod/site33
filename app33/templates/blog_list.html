@@ -15,7 +15,7 @@
 {{p['title']}}
 </h2>
 
-{{ markdown(p['content'][:700]) }}{% if len(p['content'])>700 %}...{% end %}
+{{ markdown(p['content'][:900]) }}{% if len(p['content'])>700 %}...{% end %}
 
 <div class="block-ftr">
 <a href="/blog/{{ p['key'] }}">direct link</a>
