@@ -222,7 +222,7 @@ textarea {
 
 .opt { background: #777; color:#fff; padding: 6px; margin:10px; }
 
-#pasted { padding: 30px; margin-top: 30px; }
+#pasted { padding: 30px; margin-top: 30px; overflow:auto; overflow-y:hidden; }
 #pasteit { width: 100px; margin: 10px; padding: 6px;  }
 .pbloc {  padding: 10px; background: #ccc; }
 
@@ -231,3 +231,4 @@ textarea {
 .pblink { display: inline-block; width:110px; }
 
 .codehilite { padding-left: 30px; }
+.lineno { color: #999; }
