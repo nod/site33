@@ -68,7 +68,7 @@ class Paste(object):
                 self.text,
                 lexer,
                 HtmlFormatter(linenos='inline', cssclass='codehilite') )
-        else: return self.text.replace('<', '&lt;')
+        else: return '<pre>' + self.text.replace('<', '&lt;') + '</pre>'
 
     def to_d(self):
         d = self.__dict__.copy()
