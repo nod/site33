@@ -230,5 +230,5 @@ textarea {
 
 .pblink { display: inline-block; width:110px; }
 
-.codehilite { padding-left: 30px; }
+.codehilite { padding-left: 10px; font-size: 15px; }
 .lineno { color: #999; }

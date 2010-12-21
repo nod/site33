@@ -1,5 +1,9 @@
 {% extends base.html %}
 
+{% block title %}
+pastebin{% if paste %}:{{paste.key}} {{paste.hilite}}{% end %}
+- {% end %}
+
 {% block content-wide %}
 
 <form method="POST">
