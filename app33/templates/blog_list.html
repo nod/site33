@@ -19,6 +19,12 @@
 
 <div class="block-ftr">
 <a href="/blog/{{ p['key'] }}">direct link</a>
+<div class="tag-list">
+tags:
+{% for t in p.get('tags',[]) %}
+<a href="/blog/tag/{{t}}">{{t}}</a>
+{% end %}
+</div>
 </div>
 
 </div>
@@ -29,9 +35,22 @@
 
 {% block content-alt %}
 
+
+<div class="block-alt">
+<h3> Blog Tidbits  </h3>
+<ul>
+{% if tag_list %}
+<li> tags 
+{% for t in tag_list %}<a href='/blog/tag/{{t}}'>{{t}}</a>{% end %}
+</li>
+{% end %}
+<li><a href="http://33ad.org/blog">All Posts</a></li>
+</ul>
+</div>
+
+
 <div class="block-alt">
 <h3> Projects </h3>
-
 <ul>
 <li><a href="http://github.com/nod/tornskel">
     <span class="github">GITHUB</span>
@@ -40,8 +59,6 @@
     <span class="github">GITHUB</span>
     My portable dotfiles</a></li>
 </ul>
-
-
 </div>
 
 {% end %}

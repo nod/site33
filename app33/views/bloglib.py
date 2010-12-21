@@ -26,7 +26,9 @@ def slugify(value):
     value = unicode(_slugify_strip_re.sub('', value).strip().lower())
     return _slugify_hyphenate_re.sub('-', value)
 
+
 class BogusBlogDB(Exception): pass
+
 
 class Blog(object):
 
@@ -60,7 +62,7 @@ class Blog(object):
             d['date'] = datetime(*loads(d['date'])[:6])
         except:
             d['date'] = datetime.now()
-        d['tags'] = loads(d['tags'])
+        d['tags'] = [t.strip() for t in loads(d['tags'])]
         return d
 
     def __setitem__(self, key, value):
@@ -94,6 +96,29 @@ class Blog(object):
         sorted_keys = self._db.metasearch((q,), tc.TDBMSUNION)
         self._dbmeta[key_Sorted] = dumps(sorted_keys)
         self._dbmeta.sync()
+
+    def tag_list(self):
+        tags = set()
+        for p in self._db:
+            post = self._post(self._db[p])
+            for t in post['tags']:
+                tags.add(t)
+        return sorted(tags, cmp=lambda x,y: cmp(x.lower(), y.lower()))
+
+    def all_posts(self, year=None):
+        q = self._db.query()
+        q.sort('date', tc.TDBQOSTRDESC)
+        if year:
+            q.filter('date', tc.TDBQCSTRINC, '[%d'%year)
+        all_posts = self._db.metasearch((q,), tc.TDBMSISECT)
+        return ( self._post(self._db[t]) for t in all_posts )
+
+    def posts_with_tag(self, tag):
+        q = self._db.query()
+        q.sort('date', tc.TDBQOSTRDESC)
+        q.filter('tags', tc.TDBQCSTRINC, tag)
+        tag_keys = self._db.metasearch((q,), tc.TDBMSISECT)
+        return ( self._post(self._db[t]) for t in tag_keys )
 
     def new(self, title, content, date=None, tags=None, key=None):
         slug = key or str(slugify(title))

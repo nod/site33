@@ -12,6 +12,7 @@ admin_pass = 'command79Green'
 def ts(d):
     return rfc3339.rfc3339(d)
 
+
 class BlogHandler(BaseHandler):
     def blog(self, writeable=False):
         return Blog(
@@ -29,15 +30,43 @@ class BlogHandler(BaseHandler):
             **kwa )
 
 
+@route(r'/blog/?$')
+class BlogList(BlogHandler):
+    def get(self, year=None):
+        blog = self.blog()
+        posts = blog.all_posts(year)
+        self.render(
+            'blog_title_list.html',
+            posts=posts,
+            title = 'posts' )
+
+
+@route(r'/blog/tag/(?P<tag>[%\w]+)/?$')
+class BlogTagList(BlogHandler):
+    def get(self, tag):
+        blog = self.blog()
+        posts = blog.posts_with_tag(tag)
+        self.render(
+            'blog_title_list.html',
+            posts=posts,
+            title = 'tag: %s' % tag )
+
+
 @route('/')
 class IndexHandler(BlogHandler):
 
     def get(self):
-        self.render('blog_list.html', posts=self.blog()[:4])
+        blog = self.blog()
+        self.render(
+            'blog_list.html',
+            posts=blog[:4],
+            tag_list = blog.tag_list()
+            )
 
 
 @route(r'/blog/new')
 class BlogNewPost(BlogHandler):
+
     def get(self):
         blog = self.blog()
         post = {}
@@ -58,6 +87,7 @@ class BlogNewPost(BlogHandler):
 
 @route(r'/blog/(?P<key>[a-zA-Z0-9-_]+)/edit/?$')
 class BlogPost(BlogHandler):
+
     def get(self, key):
         blog = self.blog()
         if key in blog: post = blog[str(key)]

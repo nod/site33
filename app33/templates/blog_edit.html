@@ -13,7 +13,7 @@ title <br/>
 
 tags (comma separated)<br/>
 <input class="text" type="text" name="_tags"
-    value="{{ post.get('tags') or '' }}"/> <br/>
+    value="{{ ', '.join(post.get('tags'))  or '' }}"/> <br/>
 
 <textarea name="_content">
 {{ post.get('content') or '' }}

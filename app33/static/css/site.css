@@ -187,6 +187,7 @@ ul#twitter_status_nod li {
 	color: #111;
 	background-color: #bbb;
 	border-radius: 3px;
+	margin-right: 4px;
 	}
 
 .block-alt a .github {
@@ -232,3 +233,5 @@ textarea {
 
 .codehilite { padding-left: 10px; font-size: 15px; }
 .lineno { color: #999; }
+
+.tag-list { margin-right: 30px; color: #444; float:right; }
