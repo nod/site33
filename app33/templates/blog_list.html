@@ -22,7 +22,7 @@
 <div class="tag-list">
 tags:
 {% for t in p.get('tags',[]) %}
-<a href="/blog/tag/{{t}}">{{t}}</a>
+<a href="/blog/tag/{{t}}" class="tag">{{t}}</a>
 {% end %}
 </div>
 </div>
@@ -40,11 +40,14 @@ tags:
 <h3> Blog Tidbits  </h3>
 <ul>
 {% if tag_list %}
-<li> tags 
-{% for t in tag_list %}<a href='/blog/tag/{{t}}'>{{t}}</a> {% end %}
+<li> tags <br/>
+{% for t in tag_list %}<a href='/blog/tag/{{t}}' class="tag">{{t}}</a> {% end %}
 </li>
 {% end %}
-<li><a href="http://33ad.org/blog">All Posts</a></li>
+<li>posts <br>
+{% for y in year_list %}<a href='/blog/{{y}}'>{{y}}</a> {% end %}
+<a href="http://33ad.org/blog">all</a>
+</li>
 </ul>
 </div>
 

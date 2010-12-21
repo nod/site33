@@ -30,10 +30,11 @@ class BlogHandler(BaseHandler):
             **kwa )
 
 
-@route(r'/blog/?$')
+@route(r'/blog/?(?P<year>\d{4})?$')
 class BlogList(BlogHandler):
     def get(self, year=None):
         blog = self.blog()
+        if year is not None: year=int(year)
         posts = blog.all_posts(year)
         self.render(
             'blog_title_list.html',
@@ -57,10 +58,12 @@ class IndexHandler(BlogHandler):
 
     def get(self):
         blog = self.blog()
+        years, tags = blog.meta_list()
         self.render(
             'blog_list.html',
             posts=blog[:4],
-            tag_list = blog.tag_list()
+            tag_list = tags,
+            year_list = years,
             )
 
 

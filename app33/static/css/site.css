@@ -20,7 +20,7 @@ body {
 	padding: 0 6px;
 	margin-right: 8px;
 	text-decoration: none;
-	border-radius: 10px;
+	border-radius: 4px;
 	color: #fff;
 	}
 
@@ -74,6 +74,8 @@ body {
 
 #twitter_nod a:hover {
 	text-shadow: #333 0 0 4px;
+	color: #bbb;
+	background-color: #333;
 	}
 
 ul#twitter_status_nod {
@@ -114,7 +116,8 @@ ul#twitter_status_nod li {
 	}
 
 .block-main a:hover {
-	text-shadow: #999 0 0 4px;
+	color: #bbb;
+	background-color: #111;
 	}
 
 .block-meta {
@@ -191,6 +194,11 @@ ul#twitter_status_nod li {
 	white-space:nowrap;
 	}
 
+.block-alt a:hover {
+	color: #bbb;
+	background-color: #111;
+	}
+
 .block-alt a .github {
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 10px;
@@ -232,7 +240,11 @@ textarea {
 
 .pblink { display: inline-block; width:110px; }
 
-.codehilite { padding-left: 10px; font-size: 15px; }
+.codehilite {font-family: Andale Mono, Courier New, monospace; background-color: #f0f0f0; margin-left: 6px;  margin-right: 6px; font-size: 15px; }
+code { background-color: #f0f0f0; font-size: 15px; font-family: Andale Mono, Courier New, monospace; }
+pre {font-family: Andale Mono, Courier New, monospace;}
+
 .lineno { color: #999; }
 
 .tag-list { margin-right: 30px; color: #444; float:right; }
+.tag { font-size: 80%; }

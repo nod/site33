@@ -25,7 +25,9 @@
 
 {% if p.get('tags') %}
 tags:
-{% for t in p.get('tags',[]) %} <a href="/blog/tag/{{t}}">{{t}}</a> {% end %}
+{% for t in p.get('tags',[]) %}
+<a href="/blog/tag/{{t}}" class="tag">{{t}}</a>
+{% end %}
 {% end %}
 
 </div>

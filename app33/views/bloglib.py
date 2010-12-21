@@ -97,13 +97,19 @@ class Blog(object):
         self._dbmeta[key_Sorted] = dumps(sorted_keys)
         self._dbmeta.sync()
 
-    def tag_list(self):
+    def meta_list(self):
+        """ returns a tuple (years, tags) """
+        years = set()
         tags = set()
         for p in self._db:
             post = self._post(self._db[p])
+            years.add(post['date'].year)
             for t in post['tags']:
                 tags.add(t)
-        return sorted(tags, cmp=lambda x,y: cmp(x.lower(), y.lower()))
+        return (
+            sorted(years, reverse=True),
+            sorted(tags, cmp=lambda x,y: cmp(x.lower(), y.lower())) 
+            )
 
     def all_posts(self, year=None):
         q = self._db.query()
