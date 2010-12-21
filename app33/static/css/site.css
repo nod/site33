@@ -188,6 +188,7 @@ ul#twitter_status_nod li {
 	background-color: #bbb;
 	border-radius: 3px;
 	margin-right: 4px;
+	white-space:nowrap;
 	}
 
 .block-alt a .github {
