@@ -35,4 +35,4 @@ def build_list():
     return tmp_
 
 def verify(x):
-    return x in big_list or x == 'momma'
+    return x in big_list or x == 'yom0mMa'
