@@ -35,7 +35,7 @@ class TmpUpHandler(BaseHandler):
         else: fname = slugify(parts[0])
         move(self.get_argument('upfile_path'), '%s/%s' % (dest_dir, fname))
 
-        fileuri = "http://33ad.org/tmp/%s/%s" % (tmp_, fname)
+        fileuri = "https://33ad.org/tmp/%s/%s" % (tmp_, fname)
 
         if is_json:
             self.write(json_dumps({ 'uri': fileuri }))
