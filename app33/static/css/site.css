@@ -244,7 +244,7 @@ textarea {
 code { background-color: #f0f0f0; font-size: 15px; font-family: Andale Mono, Courier New, monospace; }
 pre {font-family: Andale Mono, Courier New, monospace;}
 
-.lineno { color: #999; }
+.lineno { color: #777; background: #bbb; font-size: 90%; padding: 2px; }
 
 .tag-list { margin-right: 30px; color: #444; float:right; }
 .tag { font-size: 80%; }
