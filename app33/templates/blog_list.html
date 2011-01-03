@@ -12,7 +12,7 @@
     <div class="num">{{p['date'].strftime('%d')}}</div>
     <div class="year">{{p['date'].year}}</div>
     </div>
-{{p['title']}}
+<a href="/blog/{{ p['key'] }}">{{p['title']}}</a>
 </h2>
 
 {{ markdown(p['content']) }}

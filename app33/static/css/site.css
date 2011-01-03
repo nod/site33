@@ -153,6 +153,11 @@ ul#twitter_status_nod li {
 	line-height: 20px;
 	}
 
+.block-main h2.block-hdr a {
+	background: none;
+	color: #fff;
+	font-size: 22px;
+	}
 .block-main h2.block-hdr {
 	font-family: "Nobile", Helvetica, arial, sans-serif;
 	line-height: 68px;
