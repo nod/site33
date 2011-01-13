@@ -180,5 +180,8 @@ class route(object):
     def get_routes(self):
         return self._routes
 
+    @classmethod
+    def clear_routes(self):
+        self._routes = []
 
 

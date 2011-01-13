@@ -26,6 +26,7 @@ langlist = dict((
     ('python', 'Python'),
     ('pycon', 'Python console session'),
     ('pytb', 'Python Traceback'),
+    ('ruby', 'Ruby'),
     ('sql', 'SQL'),
     ('xml', 'XML'),
     ))
