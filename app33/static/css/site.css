@@ -245,11 +245,11 @@ textarea {
 
 .pblink { display: inline-block; width:110px; }
 
-.codehilite {font-family: Andale Mono, Courier New, monospace; background-color: #f0f0f0; margin-left: 6px;  margin-right: 6px; font-size: 15px; 
+.codehilite {font-family: Andale Mono, Courier New, monospace; background-color: #f0f0f0; margin-left: 6px;  margin-right: 6px; font-size: 15px;
 	overflow:auto; overflow-y:hidden;}
 
 code { background-color: #f0f0f0; font-size: 15px; font-family: Andale Mono, Courier New, monospace; }
-pre {font-family: Andale Mono, Courier New, monospace;}
+pre {font-family: Andale Mono, Courier New, monospace; line-height: 16px; }
 
 .lineno { color: #777; background: #bbb; font-size: 90%; padding: 2px; }
 
