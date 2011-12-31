@@ -1,26 +1,25 @@
 #!/usr/bin/env python
+
+import sys
+from optparse import OptionParser
+
 import tornado.httpserver
 import tornado.ioloop
 import tornado.web
-import sys
 
-import app33  # our application
 from settings import settings
+from views import routes
 
-from optparse import OptionParser
-from tornroutes import route
-
-def start_instance(settings):
-    http_server = tornado.httpserver.HTTPServer(
-        app33.setup_app(settings)
-        )
+def start_instance(settings, routes):
+    app = tornado.web.Application(routes, **settings)
+    http_server = tornado.httpserver.HTTPServer(app)
     http_server.listen(settings['port'])
-
     try: tornado.ioloop.IOLoop.instance().start()
     except KeyboardInterrupt: pass
 
 
 if __name__ == "__main__":
+    from tornroutes import route
     parser = OptionParser()
     parser.add_option("-r", "--routes", action="store_true",
             help="print list of routes and exit")
@@ -41,4 +40,4 @@ if __name__ == "__main__":
         try: settings['port'] = int(args[0])
         except: pass
     print "starting Tornado on port", settings['port']
-    start_instance(settings)
+    start_instance(settings, routes)
