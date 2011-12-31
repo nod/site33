@@ -1,17 +1,16 @@
 
-import rfc3339
-from markdown import Markdown
-from viewlib import route, BaseHandler
-from bloglib import Blog
 from datetime import datetime
 
+import rfc3339
+from markdown import Markdown
 
-admin_pass = 'command79Green'
+from viewlib import BaseHandler
+from bloglib import Blog
 
+from . import route
 
-def ts(d):
-    return rfc3339.rfc3339(d)
-
+# convenience to format a datetime
+ts = rfc3339.rfc3339
 
 class BlogHandler(BaseHandler):
     def blog(self, writeable=False):

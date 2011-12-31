@@ -1,7 +1,8 @@
 
 import shelve
-from viewlib import route, BaseHandler
+from viewlib import BaseHandler
 from bloglib import Blog
+from . import route
 
 @route('/')
 class IndexHandler(BaseHandler):

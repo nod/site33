@@ -1,5 +1,6 @@
 tornado
 -e git+git://github.com/nod/databag.git#egg=databag
 -e git+git://github.com/nod/tornroutes.git#egg=tornroutes
-markdown
-pygments
+Markdown
+Pygments
+iso8601

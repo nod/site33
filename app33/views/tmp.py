@@ -3,10 +3,12 @@ from json import dumps as json_dumps
 from os import mkdir
 from shutil import move
 
-from viewlib import route, BaseHandler
-from useful import gen_key, slugify
-
 import human_checks as human
+from useful import gen_key, slugify
+from viewlib import BaseHandler
+
+from . import route
+
 
 @route('/tmp/?')
 class TmpHandler(BaseHandler):
