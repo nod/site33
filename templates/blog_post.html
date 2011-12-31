@@ -1,0 +1,33 @@
+{% extends base.html %}
+
+{% block title %} {{post['title']}} - {% end %}
+
+{% block content-wide %}
+
+<div class="block-main">
+<h2 class="block-hdr">
+<div class="block-meta">
+    <div class="mon">{{post['date'].strftime('%b')}}</div>
+    <div class="num">{{post['date'].strftime('%d')}}</div>
+    <div class="year">{{post['date'].year}}</div>
+    </div>
+{{post['title']}}
+</h2>
+{{markdown(post['content'])}}
+
+<div class="block-ftr">
+<a href="/blog/{{ post['key'] }}">direct link</a>
+
+<div class="tag-list">
+tags:
+{% for t in post.get('tags',[]) %}
+<a href="/blog/tag/{{t}}" class="tag">{{t}}</a>
+{% end %}
+</div>
+
+</div>
+
+
+</div>
+
+{% end %}

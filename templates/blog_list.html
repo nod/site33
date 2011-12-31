@@ -1,0 +1,74 @@
+{% extends base.html %}
+
+{% block content-main %}
+
+{% for p in posts %}
+
+<div class="block-main">
+
+<h2 class="block-hdr">
+<div class="block-meta">
+    <div class="mon">{{p['date'].strftime('%b')}}</div>
+    <div class="num">{{p['date'].strftime('%d')}}</div>
+    <div class="year">{{p['date'].year}}</div>
+    </div>
+<a href="/blog/{{ p['key'] }}">{{p['title']}}</a>
+</h2>
+
+{{ markdown(p['content']) }}
+
+<div class="block-ftr">
+<a href="/blog/{{ p['key'] }}">direct link</a>
+<div class="tag-list">
+tags:
+{% for t in p.get('tags',[]) %}
+<a href="/blog/tag/{{t}}" class="tag">{{t}}</a>
+{% end %}
+</div>
+</div>
+
+</div>
+
+{% end %}
+
+{% end %}
+
+{% block content-alt %}
+
+
+<div class="block-alt">
+<h3> Blog Tidbits  </h3>
+<ul>
+{% if tag_list %}
+<li> tags <br/>
+{% for t in tag_list %}<a href='/blog/tag/{{t}}' class="tag">{{t}}</a> {% end %}
+</li>
+{% end %}
+<li>posts <br>
+{% for y in year_list %}<a href='/blog/{{y}}'>{{y}}</a> {% end %}
+<a href="http://33ad.org/blog">all</a>
+</li>
+</ul>
+</div>
+
+
+<div class="block-alt">
+<h3> Projects </h3>
+<ul>
+<li><a href="http://github.com/nod/tornado_addons">
+    <span class="github">GITHUB</span>
+    Tornado Addons Project </a></li>
+<li><a href="http://github.com/nod/dotfiles">
+    <span class="github">GITHUB</span>
+    My portable dotfiles</a></li>
+<li><a href="https://gist.github.com/872761">
+    <span class="github">GITHUB</span>
+    pdb source highlighting</a></li>
+<li><a href="https://github.com/nod/controll">
+    <span class="github">GITHUB</span>
+    conTroll - con mgmt</a></li>
+</ul>
+</div>
+
+{% end %}
+

@@ -1,0 +1,51 @@
+{% extends base.html %}
+{% autoescape None %}
+
+{% block title %}
+pastebin{% if paste %}:{{paste.key}} {{paste.hi}}{% end %}
+- {% end %}
+
+{% block content-wide %}
+
+<form method="POST">
+<div class="block-main">
+<h2 class="block-hdr"> pastebin </h2>
+
+{% if paste %}
+<span class="pbloc">pastebin location http://33ad.org/pb/{{paste.key}}</span>
+<div id="pasted">
+{{ paste.display_text() }}
+</div>
+{% end %}
+
+<div class="optgroup">
+<span class="opt">
+<label for="hilite">Syntax highlighting?</label>
+<select name="hilite">
+{% for lang in sorted(langs) %}
+    <option value="{{ lang }}"
+        {% if paste and paste.hi == lang %}selected{% end %}
+        >{{ langs[lang] }}</option>
+{% end %}
+</select>
+</span>
+<span class="opt">
+<label for="human1"></label>
+<label for="human2">Check this if you're human.</label>
+<input type="checkbox" name="human1" id="human1"/>
+<input type="checkbox" name="human2" id="human2"/>
+</span>
+<span class="opt">
+<input type="submit" value="paste it." class="submit" id="pasteit"/>
+</span>
+</div>
+
+<textarea name="_paste" id="textpaste">{{ paste and paste.text or '' }}</textarea>
+
+</form>
+</div>
+
+<div>created: {{ paste.c_at }}</div>
+
+{% end %}
+
