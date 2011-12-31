@@ -33,10 +33,11 @@ langlist = {
     }
 
 class Paste(object):
-    def __init__(self, text, hi=None, key=None):
+    def __init__(self, text, hi=None, key=None, c_at=None):
         self.key = key or gen_key()
         self.text = text
         self.hi = hi
+        self.c_at = c_at or datetime.now()
 
     def _d(self):
         return {'text': self.text, 'hi':self.hi, 'key':self.key}
@@ -68,7 +69,6 @@ class IndexHandler(BaseHandler):
         self._bag = DataBag(self.application.settings['dbpaste'])
 
     def get(self, pbkey=None):
-        print [k for k in self._bag]
         if pbkey: paste = Paste(**self._bag[pbkey])
         else: paste = None
         self.render('pastebin.html', paste=paste,  langs=langlist)
