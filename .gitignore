@@ -8,20 +8,13 @@
 *.swp
 *~.nib
 
-settings_dev.py
-settings_prod.py
+settings_local.py
 build
-
-*.pbxuser
-*.perspective
-*.perspectivev3
-
-*.mode1v3
-*.mode2v3
 
 *.pyc
 *.sqlite3
 *.db
+*.bag
 
 *.mp3
 *.mp4
