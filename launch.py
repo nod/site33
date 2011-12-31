@@ -5,10 +5,10 @@ import tornado.web
 import sys
 
 import app33  # our application
-from settings import torn_settings as settings
+from settings import settings
 
 from optparse import OptionParser
-from app33.views.viewlib import route
+from tornroutes import route
 
 def start_instance(settings):
     http_server = tornado.httpserver.HTTPServer(

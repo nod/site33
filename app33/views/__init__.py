@@ -1,12 +1,9 @@
 
-from viewlib import route, BaseHandler, async_yield
+from viewlib import route, BaseHandler
 
 import about
-import blog
 import pastebin
 import tmp
-
-
 
 
 # this needs to be the last line after all views are defined

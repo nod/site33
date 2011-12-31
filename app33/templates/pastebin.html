@@ -1,7 +1,8 @@
 {% extends base.html %}
+{% autoescape None %}
 
 {% block title %}
-pastebin{% if paste %}:{{paste.key}} {{paste.hilite}}{% end %}
+pastebin{% if paste %}:{{paste.key}} {{paste.hi}}{% end %}
 - {% end %}
 
 {% block content-wide %}
@@ -23,7 +24,7 @@ pastebin{% if paste %}:{{paste.key}} {{paste.hilite}}{% end %}
 <select name="hilite">
 {% for lang in sorted(langs) %}
     <option value="{{ lang }}"
-        {% if paste and paste.hilite == lang %}selected{% end %}
+        {% if paste and paste.hi == lang %}selected{% end %}
         >{{ langs[lang] }}</option>
 {% end %}
 </select>

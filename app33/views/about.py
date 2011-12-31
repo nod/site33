@@ -1,6 +1,6 @@
 
 from markdown import Markdown
-from viewlib import route, BaseHandler, async_yield
+from viewlib import route, BaseHandler
 
 about_text = """
 ### 33ad actually comes from a year

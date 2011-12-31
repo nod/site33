@@ -1,6 +1,6 @@
 
 import shelve
-from viewlib import route, BaseHandler, async_yield
+from viewlib import route, BaseHandler
 from bloglib import Blog
 
 @route('/')

@@ -1,7 +1,7 @@
 
 import rfc3339
 from markdown import Markdown
-from viewlib import route, BaseHandler, async_yield
+from viewlib import route, BaseHandler
 from bloglib import Blog
 from datetime import datetime
 
