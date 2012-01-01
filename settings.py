@@ -10,8 +10,8 @@ settings = dict(
 
     port = 6488,
     login_url="/auth/login",
-    static_path = path.join(path.dirname(__file__), "app33/static"),
-    template_path = path.join(path.dirname(__file__), "app33/templates"),
+    static_path = path.join(path.dirname(__file__), "static"),
+    template_path = path.join(path.dirname(__file__), "templates"),
     cookie_secret = None, # set in settings_local.settings
 
     debug = False,

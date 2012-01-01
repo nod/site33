@@ -1,7 +1,7 @@
 
-from tornroutes import route
 
 from viewlib import BaseHandler
+from tornroutes import route
 
 # import time side effects ftw. importing the modules creates our routes
 import about
@@ -9,4 +9,4 @@ import pastebin
 import tmp
 
 # this needs to be the last line after all views are defined
-routes = tornroutes.route.get_routes()
+routes = route.get_routes()

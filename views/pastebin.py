@@ -62,14 +62,16 @@ class AllHandler(BaseHandler):
 
 
 @route('/pb/?(?P<pbkey>[a-zA-Z0-9]*)')
-class IndexHandler(BaseHandler):
+class PasteHandler(BaseHandler):
 
     def prepare(self):
         self._bag = DataBag(self.application.settings['dbpaste'])
 
     def get(self, pbkey=None):
+        print "PBKEY:", pbkey
         if pbkey: paste = Paste(**self._bag[pbkey])
         else: paste = None
+        print "PASTE:", paste
         self.render('pastebin.html', paste=paste,  langs=langlist)
 
     def post(self, pbkey=None):

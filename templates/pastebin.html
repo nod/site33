@@ -45,7 +45,9 @@ pastebin{% if paste %}:{{paste.key}} {{paste.hi}}{% end %}
 </form>
 </div>
 
+{% if paste %}
 <div>created: {{ paste.c_at }}</div>
+{% end %}
 
 {% end %}
 
