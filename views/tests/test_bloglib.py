@@ -38,6 +38,8 @@ class TestBlogLib(unittest.TestCase):
     def test_contains(self):
         self.assertTrue( self.slug in self.blog )
         self.assertFalse( 'bogus-post' in self.blog )
+        self.assertFalse( None in self.blog )
+        self.assertFalse( 777 in self.blog )
 
     def test_all(self):
         posts = self.blog.all_posts()
