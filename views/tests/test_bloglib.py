@@ -1,6 +1,6 @@
 
 import unittest
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from . import bloglib
 
@@ -40,7 +40,7 @@ class TestBlogLib(unittest.TestCase):
         self.assertFalse( 'bogus-post' in self.blog )
 
     def test_all(self):
-        posts = self.blog.all()
+        posts = self.blog.all_posts()
         # tests that all items exist and are returned in descending order of
         # creation time
         self.assertListEqual(
@@ -63,7 +63,7 @@ class TestBlogLib(unittest.TestCase):
         self.blog.remove_post(self.slug)
         self.assertItemsEqual(
             [ self.slug2 ],
-            [ p.slug for p in self.blog.all() ]
+            [ p.slug for p in self.blog.all_posts() ]
             )
 
     def test_update(self):
@@ -71,5 +71,17 @@ class TestBlogLib(unittest.TestCase):
         self.blog.update_post(self.post)
         p = self.blog.post(self.slug)
         self.assertEqual( 'shock', p.title )
+
+    def test_all_year(self):
+        year = datetime.now().year
+        self.post.c_at += timedelta(days=366)
+        self.blog.update_post(self.post)
+        self.assertItemsEqual(
+            [ p.slug for p in self.blog.all_posts(year=year) ],
+            [ self.slug2 ]
+            )
+
+
+
 
 

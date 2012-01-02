@@ -83,7 +83,7 @@ class Blog(object):
             reverse = True
             )
 
-    def all(self, year=None):
+    def all_posts(self, year=None):
         """ returns list of posts, limited to year if requested """
         return self._sorted_posts(
             p for p in self if (True if not year else year == p.c_at.year)

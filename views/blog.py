@@ -4,21 +4,16 @@ from datetime import datetime
 import rfc3339
 from markdown import Markdown
 
+from . import route
 from viewlib import BaseHandler
 from bloglib import Blog
-
-from . import route
 
 # convenience to format a datetime
 ts = rfc3339.rfc3339
 
 class BlogHandler(BaseHandler):
     def blog(self, writeable=False):
-        return Blog(
-                self.application.settings.get('dbposts'),
-                self.application.settings.get('dbmeta'),
-                writeable=writeable,
-                )
+        return Blog( self.application.settings.get('dbposts') )
 
     def render_string(self, templ, **kwa):
         return BaseHandler.render_string(
