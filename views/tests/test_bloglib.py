@@ -1,7 +1,7 @@
 
 import unittest
 
-from . import bloglib
+from ..views import bloglib
 
 class TestBlogLib(unittest.TestCase):
 

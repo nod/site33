@@ -1,5 +1,4 @@
 
-
 from viewlib import BaseHandler
 from tornroutes import route
 
@@ -9,4 +8,4 @@ import pastebin
 import tmp
 
 # this needs to be the last line after all views are defined
-routes = route.get_routes()
+# routes = route.get_routes()

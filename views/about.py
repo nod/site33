@@ -1,7 +1,7 @@
 
 from markdown import Markdown
 from viewlib import BaseHandler
-from tornroutes import route
+from . import route
 
 about_text = """
 ### 33ad actually comes from a year
