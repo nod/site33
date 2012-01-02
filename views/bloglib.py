@@ -10,16 +10,17 @@ from useful import slugify
 
 
 class BlogPost(object):
-    __slots__ = ('title', 'text', 'tags', 'c_at')
-
-    def __init__(self, title, body, tags=None, c_at=None):
-
+    def __init__(self, title, text, tags=None, c_at=None, slug=None):
         self.title = title
-        self.body = body
+        self.text = text
         self.tags = tags or tuple()
         self.c_at = c_at or datetime.now()
+        self.slug = slug
 
-        if not isinstance(datetime, self.c_at)
+        if len(self.title) < 1:
+            raise ValueError('title too short')
+
+        if not isinstance(self.c_at, datetime):
             raise ValueError('c_at must be a datetime')
 
         if not isinstance(self.tags, (list, tuple, set)):
@@ -31,8 +32,9 @@ class BlogPost(object):
         Return a dictionary suitable for jsonification or databaggery
         """
         return dict(
+            s = self.slug,
             t = self.title,
-            b = self.body,
+            b = self.text,
             tg = self.tags,
             c = self.c_at,
             )
@@ -44,8 +46,9 @@ class BlogPost(object):
         Create an instance of a BlogPost from a dictionary created by inst._d()
         """
         return BlogPost(
+            slug = d.get('s'),
             title = d.get('t'),
-            body  = d.get('b'),
+            text  = d.get('b'),
             tags = d.get('tg'),
             c_at = parse_date(d.get('c')),
             )
@@ -60,9 +63,9 @@ class Blog(object):
         return key in self._dbposts
 
     def __iter__(self):
-        return (BlogPost._fd(p) for p in self._dbposts)
+        return (BlogPost._fd(d) for p,d in self._dbposts.by_created())
 
-    def meta_list(self):
+    def meta_lists(self):
         """ returns a tuple (years, tags) """
         tags, years = set(), set()
         for p in self:
@@ -89,19 +92,30 @@ class Blog(object):
     def posts_with_tag(self, tag):
         return self._sorted_posts(p for p in self if (tag in p.tags))
 
-    def new(self, title, content, tags=None):
-        slug = key or str(slugify(title))
-        if not key: # assume this is new
-            while slug in self._db: slug += '_'
+    def post(self, slug):
+        return BlogPost._fd(self._dbposts[slug])
+
+    def new_post(self, title, content, tags=None):
+        yr = datetime.now().year
+        slug = '{}-{}'.format(yr, str(slugify(title)))
+        while slug in self._dbposts: slug += '_'
         post_ = BlogPost(
-            title,
-            content,
-            tags,
+            title = title,
+            text = content,
+            tags = tags,
+            slug = slug,
             )
         self._dbposts[slug] = post_._d()
-        return post_
+        return slug, post_
 
-    def remove_post(self, key):
-        del self._dbposts[key]
+    def update_post(self, post):
+        """
+        updates a post's data.
+        does NOT modify the slug
+        """
+        self._dbposts[post.slug] = post._d()
+
+    def remove_post(self, slug):
+        del self._dbposts[slug]
 
 
