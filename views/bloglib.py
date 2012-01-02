@@ -53,6 +53,13 @@ class BlogPost(object):
             c_at = parse_date(d.get('c')),
             )
 
+    def get(self, attr, default=None):
+        """
+        return the attr requested or None, just like a dictionary does it.
+        purely convenience method.
+        """
+        return getattr(self, attr, default)
+
 
 class Blog(object):
 

@@ -3,6 +3,7 @@ from datetime import datetime
 
 import rfc3339
 from markdown import Markdown
+from tornado.web import HTTPError
 
 from . import route
 from viewlib import BaseHandler
@@ -12,8 +13,11 @@ from bloglib import Blog
 ts = rfc3339.rfc3339
 
 class BlogHandler(BaseHandler):
-    def blog(self, writeable=False):
-        return Blog( self.application.settings.get('dbposts') )
+
+    def prepare(self):
+        super(BlogHandler, self).prepare()
+        self.blog = Blog( self.application.settings.get('dbposts') )
+        self.admin_pass = self.application.settings.get('blog_admin')
 
     def render_string(self, templ, **kwa):
         return BaseHandler.render_string(
@@ -23,13 +27,16 @@ class BlogHandler(BaseHandler):
             ts=ts,
             **kwa )
 
+    def require_admin(self):
+        if self.get_argument('passwd', None) != self.admin_pass:
+            raise HTTPError(401)
+
 
 @route(r'/blog/?(?P<year>\d{4})?$')
 class BlogList(BlogHandler):
     def get(self, year=None):
-        blog = self.blog()
         if year is not None: year=int(year)
-        posts = blog.all_posts(year)
+        posts = self.blog.all_posts(year)
         self.render(
             'blog_title_list.html',
             posts=posts,
@@ -39,8 +46,7 @@ class BlogList(BlogHandler):
 @route(r'/blog/tag/(?P<tag>[%\w]+)/?$')
 class BlogTagList(BlogHandler):
     def get(self, tag):
-        blog = self.blog()
-        posts = blog.posts_with_tag(tag)
+        posts = self.blog.posts_with_tag(tag)
         self.render(
             'blog_title_list.html',
             posts=posts,
@@ -51,11 +57,10 @@ class BlogTagList(BlogHandler):
 class IndexHandler(BlogHandler):
 
     def get(self):
-        blog = self.blog()
-        years, tags = blog.meta_list()
+        years, tags = self.blog.meta_lists()
         self.render(
             'blog_list.html',
-            posts=blog[:4],
+            posts=self.blog.all_posts()[:4],
             tag_list = tags,
             year_list = years,
             )
@@ -65,56 +70,53 @@ class IndexHandler(BlogHandler):
 class BlogNewPost(BlogHandler):
 
     def get(self):
-        blog = self.blog()
-        post = {}
-        self.render('blog_edit.html', post=post)
+        self.render('blog_edit.html', post=None)
 
     def post(self):
-        if self.get_argument('passwd','') != admin_pass:
-            print "failed pass", self.get_argument('passwd')
-            return self.finish()
+        self.require_admin()
+
         p = {'date':datetime.now()}
         p['title'] = self.get_argument('_title','')
         p['tags'] = self.get_argument('_tags','').split(',')
         p['content'] = self.get_argument('_content','')
-        blog_ = self.blog(writeable=True)
-        post = blog_.new(**p)
-        self.redirect('/blog/%s/edit' % post['key'])
+        post = self.blog.new_post(**p)
+        self.redirect('/blog/%s/edit' % post.slug)
 
 
 @route(r'/blog/(?P<key>[a-zA-Z0-9-_]+)/edit/?$')
-class BlogPost(BlogHandler):
+class BlogPostEdit(BlogHandler):
 
     def get(self, key):
-        blog = self.blog()
-        if key in blog: post = blog[str(key)]
-        else: post = {}
+        post = self.blog.post(key) if key in self.blog else None
         self.render('blog_edit.html', post=post)
 
     def post(self, key):
-        if self.get_argument('passwd','') != admin_pass:
-            print "failed pass", self.get_argument('passwd')
-            return self.finish()
-
-        blog_ = self.blog(writeable=True)
+        self.require_admin()
 
         if self.get_argument('delete', False):
-            blog_.remove_post(key)
+            self.blog.remove_post(key)
             return self.redirect('/')
 
-        if key in blog_:
-            p = blog_[key]
+        title = self.get_argument('_title','')
+        tags = self.get_argument('_tags','').split(',')
+        content = self.get_argument('_content','')
+        if key in self.blog:
+            p = self.blog.post(key)
+            p.title = title
+            p.tags = tags
+            p.content = content
+            self.blog.update(p)
         else:
-            p = {'date':datetime.now(), 'key':key}
-        p['title'] = self.get_argument('_title','')
-        p['tags'] = self.get_argument('_tags','').split(',')
-        p['content'] = self.get_argument('_content','')
-        blog_[key] = p
+            key, post = self.blog.new_post(
+                title=title,
+                content=content,
+                tags=tags
+                )
         self.redirect('/blog/%s' % key)
 
 
 @route(r'/blog/(?P<key>[a-zA-Z0-9-_]+)/?$')
 class BlogPost(BlogHandler):
     def get(self, key):
-        self.render('blog_post.html', post=self.blog()[key])
+        self.render('blog_post.html', post=self.blog.post(key))
 

@@ -83,7 +83,10 @@ class TestBlogLib(unittest.TestCase):
             [ self.slug2 ]
             )
 
-
+    def test_post_get(self):
+        self.assertTrue( self.post.get('title') )
+        self.assertEqual(None, self.post.get('nothing_there') )
+        self.assertEqual('shoes', self.post.get('nothing_there', 'shoes') )
 
 
 
