@@ -14,16 +14,16 @@
 {% set old_year = 0 %}
 {% for p in posts %}
 
-{% if p['date'].year != old_year %}
-{% set old_year = p['date'].year %}
+{% if p.c_at.year != old_year %}
+{% set old_year = p.c_at.year %}
 <h3> {{ old_year }} </h3>
 {% end %}
 
 
 <div>
-<a href="/blog/{{ p['key'] }}">{{p['title']}}</a>
+<a href="/blog/{{ p.slug }}">{{p.title}}</a>
 
-{% if p.get('tags') %}
+{% if p.tags %}
 tags:
 {% for t in p.get('tags',[]) %}
 <a href="/blog/tag/{{t}}" class="tag">{{t}}</a>

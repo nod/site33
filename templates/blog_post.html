@@ -1,22 +1,22 @@
 {% extends base.html %}
 
-{% block title %} {{post['title']}} - {% end %}
+{% block title %} {{post.title}} - {% end %}
 
 {% block content-wide %}
 
 <div class="block-main">
 <h2 class="block-hdr">
 <div class="block-meta">
-    <div class="mon">{{post['date'].strftime('%b')}}</div>
-    <div class="num">{{post['date'].strftime('%d')}}</div>
-    <div class="year">{{post['date'].year}}</div>
+    <div class="mon">{{post.c_at.strftime('%b')}}</div>
+    <div class="num">{{post.c_at.strftime('%d')}}</div>
+    <div class="year">{{post.c_at.year}}</div>
     </div>
-{{post['title']}}
+{{post.title}}
 </h2>
-{{markdown(post['content'])}}
+{{markdown(post.text)}}
 
 <div class="block-ftr">
-<a href="/blog/{{ post['key'] }}">direct link</a>
+<a href="/blog/{{ post.slug }}">direct link</a>
 
 <div class="tag-list">
 tags:
