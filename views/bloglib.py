@@ -18,7 +18,7 @@ class BlogPost(object):
         self.slug = slug
 
         if len(self.title) < 1:
-            raise ValueError('title too short')
+            raise ValueError('title too short "{}"')
 
         if not isinstance(self.c_at, datetime):
             raise ValueError('c_at must be a datetime')
@@ -103,8 +103,9 @@ class Blog(object):
         return BlogPost._fd(self._dbposts[slug])
 
     def new_post(self, title, content, tags=None, c_at=None):
-        yr = datetime.now().year
-        slug = '{}-{}'.format(yr, str(slugify(title)))
+        if not isinstance(c_at, datetime): c_at = datetime.now()
+        slug = '{}-{}'.format(c_at.year, str(slugify(title)))
+        print slug, c_at
         while slug in self._dbposts: slug += '_'
         post_ = BlogPost(
             title = title,

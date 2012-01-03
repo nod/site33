@@ -23,6 +23,23 @@ class TestBlogLib(unittest.TestCase):
         self.blog.remove_post(self.slug)
         self.assertFalse( self.slug in self.blog )
 
+    def test_slug_creation(self):
+        expected = '{}-testing-test'.format(datetime.now().year)
+        slug, p = self.blog.new_post(
+                    title = 'testing test',
+                    content = 'test stuff'
+                    )
+        self.assertEqual( expected, slug )
+
+    def test_slug_creation_in_past(self):
+        expected = '2010-testing-meh'
+        slug, p = self.blog.new_post(
+                    title = 'testing meh',
+                    content = 'more tests',
+                    c_at = datetime(2010, 12, 12),
+                    )
+        self.assertEqual( expected, slug )
+
     def test_new_post(self):
         self.assertTrue( self.blog.new_post(
             title = 'a new post oh yeah',
