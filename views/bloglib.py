@@ -102,7 +102,7 @@ class Blog(object):
     def post(self, slug):
         return BlogPost._fd(self._dbposts[slug])
 
-    def new_post(self, title, content, tags=None):
+    def new_post(self, title, content, tags=None, c_at=None):
         yr = datetime.now().year
         slug = '{}-{}'.format(yr, str(slugify(title)))
         while slug in self._dbposts: slug += '_'
@@ -111,6 +111,7 @@ class Blog(object):
             text = content,
             tags = tags,
             slug = slug,
+            c_at = c_at,
             )
         self._dbposts[slug] = post_._d()
         return slug, post_

@@ -23,6 +23,13 @@ class TestBlogLib(unittest.TestCase):
         self.blog.remove_post(self.slug)
         self.assertFalse( self.slug in self.blog )
 
+    def test_new_post(self):
+        self.assertTrue( self.blog.new_post(
+            title = 'a new post oh yeah',
+            content = 'blah blah blah',
+            c_at = datetime.now(),
+            ) )
+
     def test_post_with_tags(self):
         slug3, post3 = self.blog.new_post(
             'yet another post',
