@@ -255,3 +255,15 @@ pre {font-family: Andale Mono, Courier New, monospace; line-height: 16px; }
 
 .tag-list { margin-right: 30px; color: #444; float:right; }
 .tag { font-size: 80%; }
+
+.hdr-logged-in img {
+  height: 16px;
+  width: 16px;
+  display: inline-block;
+}
+
+.hdr-logged-in {
+  padding: 2px;
+  color: #fff;
+  font-size: 80%;
+}

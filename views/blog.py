@@ -3,7 +3,7 @@ from datetime import datetime
 
 import rfc3339
 from markdown import Markdown
-from tornado.web import HTTPError
+from tornado.web import HTTPError, authenticated
 
 from . import route
 from viewlib import BaseHandler
@@ -12,12 +12,11 @@ from bloglib import Blog
 # convenience to format a datetime
 ts = rfc3339.rfc3339
 
-class BlogHandler(BaseHandler):
+class BlogBase(BaseHandler):
 
     def prepare(self):
-        super(BlogHandler, self).prepare()
+        super(BlogBase, self).prepare()
         self.blog = Blog( self.application.settings.get('dbposts') )
-        self.admin_pass = self.application.settings.get('blog_admin')
 
     def render_string(self, templ, **kwa):
         return BaseHandler.render_string(
@@ -27,96 +26,96 @@ class BlogHandler(BaseHandler):
             ts=ts,
             **kwa )
 
-    def require_admin(self):
-        if self.get_argument('passwd', None) != self.admin_pass:
-            raise HTTPError(401)
-
 
 @route(r'/blog/?(?P<year>\d{4})?$')
-class BlogList(BlogHandler):
+class BlogList(BlogBase):
+
     def get(self, year=None):
-        if year is not None: year=int(year)
-        posts = self.blog.all_posts(year)
+        try: year=int(year)
+        except: pass
         self.render(
             'blog_title_list.html',
-            posts=posts,
-            title = 'posts' )
+            posts=self.blog.posts(year),
+            title = 'posts'
+            )
 
 
 @route(r'/blog/tag/(?P<tag>[%\w]+)/?$')
-class BlogTagList(BlogHandler):
+class BlogTagList(BlogBase):
     def get(self, tag):
-        posts = self.blog.posts_with_tag(tag)
         self.render(
             'blog_title_list.html',
-            posts=posts,
-            title = 'tag: %s' % tag )
+            posts= self.blog.posts_with_tag(tag),
+            title = 'tag: %s' % tag
+            )
 
 
 @route('/')
-class IndexHandler(BlogHandler):
+class IndexHandler(BlogBase):
 
     def get(self):
         years, tags = self.blog.meta_lists()
         self.render(
             'blog_list.html',
-            posts=self.blog.all_posts()[:4],
+            posts=self.blog.posts()[:4],
             tag_list = tags,
             year_list = years,
             )
 
 
 @route(r'/blog/new')
-class BlogNewPost(BlogHandler):
+class BlogNewPost(BlogBase):
 
+    @authenticated
     def get(self):
         self.render('blog_edit.html', post=None)
 
+    @authenticated
     def post(self):
-        self.require_admin()
-
-        p = {'date':datetime.now()}
-        p['title'] = self.get_argument('_title','')
-        p['tags'] = self.get_argument('_tags','').split(',')
-        p['content'] = self.get_argument('_content','')
-        post = self.blog.new_post(**p)
+        p_ = dict(
+            title = self.get_argument('_title'),
+            tags = self.get_argument('_tags','').split(','),
+            content = self.get_argument('_content',''),
+            )
+        _, post = self.blog.new_post(**p_)
         self.redirect('/blog/%s/edit' % post.slug)
 
 
-@route(r'/blog/(?P<key>[a-zA-Z0-9-_]+)/edit/?$')
-class BlogPostEdit(BlogHandler):
+@route(r'/blog/(?P<slug>[a-zA-Z0-9-_]+)/edit/?$')
+class BlogPostEdit(BlogBase):
 
-    def get(self, key):
-        post = self.blog.post(key) if key in self.blog else None
+    @authenticated
+    def get(self, slug):
+        post = self.blog.post(slug) if slug in self.blog else None
         self.render('blog_edit.html', post=post)
 
-    def post(self, key):
-        self.require_admin()
+    @authenticated
+    def post(self, slug):
 
         if self.get_argument('delete', False):
-            self.blog.remove_post(key)
-            return self.redirect('/')
+            self.blog.remove(slug)
+            return self.redirect('/?m=done')
 
-        title = self.get_argument('_title','')
+        title = self.get_argument('_title')
         tags = self.get_argument('_tags','').split(',')
-        content = self.get_argument('_content','')
-        if key in self.blog:
-            p = self.blog.post(key)
+        content = self.get_argument('_content')
+        if slug in self.blog:
+            p = self.blog.post(slug)
             p.title = title
             p.tags = tags
             p.content = content
-            self.blog.update(p)
+            self.blog.save(p)
         else:
-            key, post = self.blog.new_post(
+            slug, post = self.blog.new_post(
                 title=title,
                 content=content,
                 tags=tags
                 )
-        self.redirect('/blog/%s' % key)
+        self.redirect('/blog/%s' % slug)
 
 
 @route(r'/blog/(?P<key>[a-zA-Z0-9-_]+)/?$')
-class BlogPost(BlogHandler):
+class BlogPost(BlogBase):
     def get(self, key):
         self.render('blog_post.html', post=self.blog.post(key))
 

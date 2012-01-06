@@ -3,6 +3,7 @@ from viewlib import BaseHandler
 from tornroutes import route
 
 # import time side effects ftw. importing the modules creates our routes
+import auth
 import about
 import blog
 import pastebin

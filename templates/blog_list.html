@@ -23,7 +23,7 @@
 <a href="/blog/{{ p.slug }}">direct link</a>
 <div class="tag-list">
 tags:
-{% for t in p.get('tags',[]) %}
+{% for t in p.tags %}
 <a href="/blog/tag/{{t}}" class="tag">{{t}}</a>
 {% end %}
 </div>
@@ -71,6 +71,17 @@ tags:
     conTroll - con mgmt</a></li>
 </ul>
 </div>
+
+{% if current_user %}
+<div class="block-alt">
+<h3> Blog Admin </h3>
+<ul>
+  <li><a href="/blog/new"> New Post </a></li>
+</ul>
+</div>
+{% end %}
+
+
 
 {% end %}
 

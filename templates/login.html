@@ -1,0 +1,39 @@
+{% extends base.html %}
+
+{% block headcss %}
+<link rel="stylesheet" type="text/css" href="/static/css/twitterbutton.css">
+{% end %}
+
+{% block content-main %}
+
+<h2> login </h2>
+
+
+<div>
+<p>
+If you don't have an account, you probably don't need one.  This is just for utility type stuff.
+</p>
+
+<p>
+You can try to login with Twitter if you'd like, but it won't do much for ya.
+</p>
+</div>
+
+{% end %}
+
+{% block content-alt %}
+
+<div style="padding-top: 100px;">
+
+<a class="sign_in_with_twitter darker" href="/auth/twitter">
+  <div></div>
+  <button>
+    <div class="icon"></div>
+    Sign in with Twitter
+  </button>
+</a>
+
+</div>
+
+
+{% end %}

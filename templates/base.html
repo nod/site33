@@ -11,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="/static/css/reset-fonts-grids.css">
 <link rel="stylesheet" type="text/css" href="/static/css/base.css">
 <link rel="stylesheet" type="text/css" href="/static/css/site.css">
+{% block headcss %}{% end %}
 
 <link rel="stylesheet" type="text/css" href="/static/css/pygments-murphy.css"/>
 
@@ -26,6 +27,14 @@
 <a href="/">home</a>
 <a href="/about">about</a>
 <a href="/pb">pastebin</a>
+
+{% if current_user %}
+<span class="hdr-logged-in">
+  logged in:
+  <img src="{{ current_user.get('profile_image_url') }}" />
+  {{ current_user.get('username') }}
+</span>
+{% end %}
 
 </div>
 
