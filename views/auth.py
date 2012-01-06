@@ -13,6 +13,13 @@ class LoginView(BaseHandler):
     def get(self):
         self.render('login.html')
 
+@route('/auth/logout')
+class Logout(BaseHandler):
+
+    def get(self):
+        self.set_current_user({})
+        self.redirect('/')
+
 
 @route('/auth/twitter/?')
 class AuthHandler(TwitterMixin, BaseHandler):
@@ -20,14 +27,16 @@ class AuthHandler(TwitterMixin, BaseHandler):
     @asynchronous
     def get(self):
         if not self.get_argument("oauth_token", None):
-            return self.authorize_redirect(
-                callback_uri='http://localhost:6488/auth/twitter'
-                )
+            if self.application.settings.get('debug'):
+                cburi = 'http://localhost:6488/auth/twitter'
+            else: cburi = None
+            return self.authorize_redirect( callback_uri= cburi )
         self.get_authenticated_user(self._got_authed)
 
     def _got_authed(self, user_d):
         if not user_d:
             raise HTTPError(500, "Twitter auth failed")
-        self.set_current_user(user_d)
-        print user_d
+        admins = self.application.settings.get('twitter_users')
+        screen_name = user_d['username']
+        if screen_name in admins: self.set_current_user(user_d)
         self.redirect('/')

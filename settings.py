@@ -16,6 +16,10 @@ settings = dict(
 
     debug = False,
     debug_pdb = False,
+
+    twitter_users = [],
+    twitter_consumer_secret = None,
+    twitter_consumer_key = None,
     )
 
 try:
