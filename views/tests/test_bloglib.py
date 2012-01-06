@@ -20,7 +20,7 @@ class TestBlogLib(unittest.TestCase):
             )
 
     def test_remove(self):
-        self.blog.remove_post(self.slug)
+        self.blog.remove(self.slug)
         self.assertFalse( self.slug in self.blog )
 
     def test_slug_creation(self):
@@ -66,7 +66,7 @@ class TestBlogLib(unittest.TestCase):
         self.assertFalse( 777 in self.blog )
 
     def test_all(self):
-        posts = self.blog.all_posts()
+        posts = self.blog.posts()
         # tests that all items exist and are returned in descending order of
         # creation time
         self.assertListEqual(
@@ -86,24 +86,24 @@ class TestBlogLib(unittest.TestCase):
         self.assertEqual( self.slug, self.blog.post(self.slug).slug )
 
     def test_remove_post(self):
-        self.blog.remove_post(self.slug)
+        self.blog.remove(self.slug)
         self.assertItemsEqual(
             [ self.slug2 ],
-            [ p.slug for p in self.blog.all_posts() ]
+            [ p.slug for p in self.blog.posts() ]
             )
 
     def test_update(self):
         self.post.title = 'shock'
-        self.blog.update_post(self.post)
+        self.blog.save(self.post)
         p = self.blog.post(self.slug)
         self.assertEqual( 'shock', p.title )
 
     def test_all_year(self):
         year = datetime.now().year
         self.post.c_at += timedelta(days=366)
-        self.blog.update_post(self.post)
+        self.blog.save(self.post)
         self.assertItemsEqual(
-            [ p.slug for p in self.blog.all_posts(year=year) ],
+            [ p.slug for p in self.blog.posts(year=year) ],
             [ self.slug2 ]
             )
 
