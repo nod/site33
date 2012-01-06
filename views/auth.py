@@ -29,7 +29,8 @@ class AuthHandler(TwitterMixin, BaseHandler):
         if not self.get_argument("oauth_token", None):
             if self.application.settings.get('debug'):
                 cburi = 'http://localhost:6488/auth/twitter'
-            else: cburi = None
+            else:
+                cburi = 'http://33ad.org/auth/twitter' # build this FIXME
             return self.authorize_redirect( callback_uri= cburi )
         self.get_authenticated_user(self._got_authed)
 
