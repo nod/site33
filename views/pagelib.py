@@ -79,9 +79,7 @@ class Book(DataBagCollection):
             try:
                 p = self.member(slug, version=version)
                 a_.add((p.cr_name, p.cr_avatar))
-                print (p.cr_name, p.cr_avatar)
                 version -= 1
-                print "SLUG, VERSION", slug, version
             except KeyError:
                 break # no more versions of the doc
 

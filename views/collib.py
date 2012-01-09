@@ -136,7 +136,6 @@ class DataBagCollection(object):
         return self._member(slug, self._db.get(slug, version=version))
 
     def save(self, member):
-        print "BLEH"
         self._update_member(member.slug, member._d())
 
     def remove(self, slug_or_mem):
