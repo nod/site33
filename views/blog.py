@@ -14,6 +14,9 @@ class BlogBase(BaseHandler):
         super(BlogBase, self).prepare()
         self.blog = Blog( self.application.settings.get('dbposts') )
 
+    def require_admin(self):
+        if not self.current_user.is_admin:
+            raise HTTPError(301)
 
 @route(r'/blog/?(?P<year>\d{4})?$')
 class BlogList(BlogBase):
@@ -56,10 +59,12 @@ class BlogNewPost(BlogBase):
 
     @authenticated
     def get(self):
+        self.require_admin()
         self.render('blog_edit.html', post=None)
 
     @authenticated
     def post(self):
+        self.require_admin()
         p_ = dict(
             title = self.get_argument('_title'),
             tags = self.get_argument('_tags','').split(','),
@@ -74,11 +79,13 @@ class BlogPostEdit(BlogBase):
 
     @authenticated
     def get(self, slug):
+        self.require_admin()
         post = self.blog.post(slug) if slug in self.blog else None
         self.render('blog_edit.html', post=post)
 
     @authenticated
     def post(self, slug):
+        self.require_admin()
 
         if self.get_argument('delete', False):
             self.blog.remove(slug)
