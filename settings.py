@@ -5,8 +5,8 @@ settings = dict(
 
     blog_admin = None,
     dbposts = None,  # BAD! Stores in MEMORY
-
     dbpaste = None,  # BAD! Stores in MEMORY
+    dbpages = None,  # BAD! Stores in MEMORY
 
     port = 6488,
     login_url="/auth/login",
@@ -17,7 +17,7 @@ settings = dict(
     debug = False,
     debug_pdb = False,
 
-    twitter_users = [],
+    twitter_admins = [],
     twitter_consumer_secret = None,
     twitter_consumer_key = None,
     )

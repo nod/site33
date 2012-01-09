@@ -38,6 +38,5 @@ class AuthHandler(TwitterMixin, BaseHandler):
         if not user_d:
             raise HTTPError(500, "Twitter auth failed")
         admins = self.application.settings.get('twitter_users')
-        screen_name = user_d['username']
-        if screen_name in admins: self.set_current_user(user_d)
+        self.set_current_user(user_d)
         self.redirect('/')

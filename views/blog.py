@@ -1,30 +1,18 @@
 
 from datetime import datetime
 
-import rfc3339
-from markdown import Markdown
 from tornado.web import HTTPError, authenticated
 
 from . import route
 from viewlib import BaseHandler
 from bloglib import Blog
 
-# convenience to format a datetime
-ts = rfc3339.rfc3339
 
 class BlogBase(BaseHandler):
 
     def prepare(self):
         super(BlogBase, self).prepare()
         self.blog = Blog( self.application.settings.get('dbposts') )
-
-    def render_string(self, templ, **kwa):
-        return BaseHandler.render_string(
-            self,
-            templ,
-            markdown=Markdown(['codehilite']).convert,
-            ts=ts,
-            **kwa )
 
 
 @route(r'/blog/?(?P<year>\d{4})?$')

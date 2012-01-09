@@ -1,0 +1,44 @@
+{% extends base.html %}
+{% autoescape None %}
+
+{% block title %}
+33ad-page{% if page %}: {{ page.title }} {% end %}
+{% end %}
+
+{% block content-wide %}
+
+<form method="POST">
+<div class="block-main">
+  <h2 class="block-hdr">
+page{% if page %}: {{ page.title }} {% end %}
+  </h2>
+
+<div id="pasted">
+{{ markdown(page.text) }}
+</div>
+
+<div>
+  this version created: {{ page.c_at }} by <img src="{{page.cr_avatar}}" height="18"/> {{ page.cr_name }}
+</div>
+
+<div>
+  authors include:
+  {% for nm,av in page_authors %}
+    <a href="http://twitter.com/#!/{{nm}}"><img src="{{av}}" height="16"/>{{nm}}</a>
+  {% end %}
+</div>
+
+<div>
+  tags: {{ ','.join(page.tags) }}
+</div>
+
+<div>
+  {% if current_user %}
+    <a href="/page/{{ page.slug }}/edit">edit this page</a>
+  {% else %}
+    <a href="/auth/">login to edit this page</a>
+  {% end %}
+</div>
+
+{% end %}
+

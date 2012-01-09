@@ -31,8 +31,8 @@
 {% if current_user %}
 <span class="hdr-logged-in">
   logged in:
-  <img src="{{ current_user.get('profile_image_url') }}" />
-  {{ current_user.get('username') }}
+  <img src="{{ current_user.avatar }}" />
+  {{ current_user.nick }}
 </span>
 {% end %}
 

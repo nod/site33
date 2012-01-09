@@ -1,0 +1,46 @@
+{% extends base.html %}
+
+{% block title %}
+page: {% if page %}{{page.title}}{% else %}new{% end %} -
+{% end %}
+
+{% block content-wide %}
+
+<h2>
+  {% if page %} editting page... {% else %} creating new page... {% end %}
+</h2>
+
+
+<form method="POST">
+
+<ul class="formset">
+
+  <li>{% if page %}{{ page.slug }}{% else %}
+    <input type="text" placeholder="slug" name="slug" value="{{ newslug if newslug else ''}}"/>
+    <span class="helptext">choose wisely. this can't be changed.</span>
+    {% end %}
+    </li>
+
+  {% if page %}
+    <li>created: {{ page.c_at }} by <img src="{{page.cr_avatar}}" height="18"/> {{ page.cr_name }} </li>
+  {% end %}
+
+  <li><input type="text" name="title" placeholder="title" value="{{page.title if page else ''}}"/></li>
+
+  <li><input type="text" name="tags" placeholder="tags" value="{{','.join(page.tags) if page else ''}}"/>
+    <span class="helptext">comma separated</span>
+  </li>
+
+  <li><textarea name="text" placeholder="blah blah blah">{{page.text if page else ''}}</textarea>
+  <span class="helptext"><a href="http://warpedvisions.org/projects/markdown-cheat-sheet/">markdown cheatsheet</a></span>
+  </li>
+
+  <li><input type="submit" value="save page" class="submit" /></li>
+
+</ul>
+
+</form>
+
+
+{% end %}
+

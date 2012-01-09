@@ -80,8 +80,13 @@ class DataBagMember(object):
 
 class DataBagCollection(object):
 
-    def __init__(self, fpath, tblname=None):
-        self._db = DataBag(fpath, tblname or 'dbc')
+    def __init__(self, fpath, tblname=None, versioned=False, history=10):
+        self._db = DataBag(
+                    fpath,
+                    tblname or 'dbc',
+                    versioned=versioned,
+                    history=history
+                    )
 
     def _member(self, k, d):
         """
@@ -126,8 +131,9 @@ class DataBagCollection(object):
     def members_with_tag(self, tag):
         return self._sorted_members(p for p in self if (tag in p.tags))
 
-    def member(self, slug):
-        return self._member(slug, self._db[slug])
+    def member(self, slug, version=None):
+        if version is None: version = 0
+        return self._member(slug, self._db.get(slug, version=version))
 
     def save(self, member):
         print "BLEH"

@@ -6,6 +6,7 @@ from tornroutes import route
 import auth
 import about
 import blog
+import pages
 import pastebin
 import tmp
 
