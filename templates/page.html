@@ -2,7 +2,7 @@
 {% autoescape None %}
 
 {% block title %}
-33ad-page{% if page %}: {{ page.title }} {% end %}
+{% if page %} {{ page.title }} {% end %} -
 {% end %}
 
 {% block content-wide %}
