@@ -48,8 +48,11 @@ class BaseHandler(tornado.web.RequestHandler):
             )
 
     def get_current_user(self):
-        u_ = json.loads(self.get_secure_cookie("authed_user"))
-        return self._instantiate_user(u_) if u_ else None
+        try:
+            u_ = json.loads(self.get_secure_cookie("authed_user"))
+            return self._instantiate_user(u_) if u_ else None
+        except TypeError:
+            pass
 
     def set_current_user(self, user):
         """
