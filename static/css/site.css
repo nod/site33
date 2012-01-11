@@ -95,7 +95,8 @@ ul#twitter_status_nod li {
 	line-height: 25px;
 	padding: 8px;
 	margin: 10px 0 30px 0;
-	border-right: 1px solid #222;
+	border-right: 1px solid #444;
+	border-left: 1px solid #444;
 	}
 
 .block-ftr {
