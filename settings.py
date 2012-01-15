@@ -20,6 +20,7 @@ settings = dict(
     twitter_admins = [],
     twitter_consumer_secret = None,
     twitter_consumer_key = None,
+    twitter_cb_uri = 'http://localhost:6488/auth/twitter',
     )
 
 try:

@@ -63,9 +63,6 @@ class BaseHandler(tornado.web.RequestHandler):
         """
         u_ = json.dumps(user)
         self.set_secure_cookie("authed_user", u_)
-        # seed the _current_user method in case it's cached with nothing by now
-        if user:
-            self._current_user = self._instantiate_user(user)
 
     def ok(self, data=None):
         self.write(json.dumps({'status':'ok', 'data':data}))
