@@ -291,6 +291,12 @@ pre {font-family: Andale Mono, Courier New, monospace; line-height: 16px; }
 .formset .helptext a { color: #999; }
 .formset .helptext a:hover { color: #555; }
 
-
-
-
+.sign_in_with_twitter {
+	background-image: url(/static/images/signin_twitter.png);
+	width:150px;
+	height:22px;
+	background-position: 0 0;
+	display: inline-block;
+	}
+.sign_in_with_twitter:hover { background-position: 0 22px; }
+.sign_in_with_twitter:active { background-position: 0 46px; }
