@@ -72,14 +72,18 @@ tags:
 </ul>
 </div>
 
-{% if current_user %}
 <div class="block-alt">
-<h3> Blog Admin </h3>
+<h4> miscellaneous </h4>
 <ul>
+{% if current_user %}
   <li><a href="/blog/new"> New Post </a></li>
+{% else %}
+  <li><a href="/auth"> Login </a></li>
+{% end %}
 </ul>
 </div>
-{% end %}
+</ul>
+</div>
 
 
 

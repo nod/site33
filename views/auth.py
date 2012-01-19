@@ -29,7 +29,8 @@ class AuthHandler(BaseHandler, TwitterMixin):
         if self.get_argument("oauth_token", False):
             self.get_authenticated_user(self._on_auth)
             return
-        self.authorize_redirect()
+        cb_uri = self.application.settings.get('twitter_callback_uri')
+        self.authenticate_redirect(callback_uri = cb_uri)
 
     def _on_auth(self, user):
         if not user:
