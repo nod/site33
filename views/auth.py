@@ -18,7 +18,7 @@ class Logout(BaseHandler):
 
 
 @route('/auth/twitter/?')
-class AuthHandler(BaseHandler, TwitterMixin):
+class AuthTwitter(BaseHandler, TwitterMixin):
 
     @asynchronous
     def get(self):
@@ -36,7 +36,7 @@ class AuthHandler(BaseHandler, TwitterMixin):
 
 
 @route('/auth/?')
-class LoginView(BaseHandler):
+class Login(BaseHandler):
 
     def get(self):
         self.render('login.html')
