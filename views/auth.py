@@ -7,11 +7,7 @@ from tornado.web import asynchronous, authenticated, HTTPError
 from . import route
 from .viewlib import BaseHandler
 
-@route('/auth/?')
-class LoginView(BaseHandler):
 
-    def get(self):
-        self.render('login.html')
 
 @route('/auth/logout')
 class Logout(BaseHandler):
@@ -38,3 +34,9 @@ class AuthHandler(BaseHandler, TwitterMixin):
         self.set_current_user(user)
         self.redirect('/')
 
+
+@route('/auth/?')
+class LoginView(BaseHandler):
+
+    def get(self):
+        self.render('login.html')
