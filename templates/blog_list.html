@@ -23,7 +23,7 @@
 <a href="/blog/{{ p.slug }}">direct link</a>
 <div class="tag-list">
 tags:
-{% for t in p.tags if t %}
+{% for t in (t for t in p.tags if t.strip()) %}
 <a href="/blog/tag/{{t}}" class="tag">{{t}}</a>
 {% end %}
 </div>
