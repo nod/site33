@@ -27,11 +27,11 @@ if __name__ == "__main__":
     (options, args) = parser.parse_args()
 
     if options.routes:
-        routes = route.get_routes()
-        L = max( len(r) for r,c in routes ) # len of longest path
+        L = max( len(r._path) for r in routes ) # len of longest path
         fmt_ = "    %%-%ds => %%s" % L
-        for r,c in  routes:
-            print fmt_ % (r, ".".join((c.__module__, c.__name__)))
+        for r in routes:
+            c = r.handler_class
+            print fmt_ % (r._path, ".".join((c.__module__, c.__name__)))
         sys.exit(0)
     elif options.port:
         try: settings['port'] = int(options.port)
