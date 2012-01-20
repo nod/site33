@@ -70,6 +70,13 @@ class BaseHandler(tornado.web.RequestHandler):
     def fail(self, reason=None):
         self.write(json.dumps({'status':'fail', 'reason': reason}))
 
+
+    def write_error(status_code, **kwargs):
+        if status_code == 404:
+            self.redirect('/404')
+        else:
+            self.redirect('/50x')
+
     def _handle_request_exception(self, e):
         tornado.web.RequestHandler._handle_request_exception(self,e)
         if self.application.settings.get('debug_pdb'):
