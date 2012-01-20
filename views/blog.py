@@ -49,7 +49,7 @@ class IndexHandler(BlogBase):
         self.render(
             'blog_list.html',
             posts=self.blog.posts()[:4],
-            tag_list = tags,
+            tag_list = (t for t in tags if t.strip()),
             year_list = years,
             )
 
