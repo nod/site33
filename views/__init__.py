@@ -10,5 +10,12 @@ import pages
 import pastebin
 import tmp
 
+
+@route('.*')
+class Handle404(BaseHandler):
+    def get(self):
+        self.redirect('/static/lost.html')
+
+
 # this needs to be the last line after all views are defined
 routes = route.get_routes()
