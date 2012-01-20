@@ -22,16 +22,15 @@ class AuthTwitter(BaseHandler, TwitterMixin):
 
     @asynchronous
     def get(self):
-        if self.get_argument("oauth_token", False):
-            self.get_authenticated_user(self._on_auth)
-            return
-        cb_uri = self.application.settings.get('twitter_callback_uri')
-        self.authenticate_redirect(callback_uri = cb_uri)
+        if not self.get_argument("oauth_token", False):
+            cb_uri = self.application.settings.get('twitter_callback_uri')
+            return self.authorize_redirect(callback_uri = cb_uri)
+        self.get_authenticated_user(self._on_auth)
 
-    def _on_auth(self, user):
-        if not user:
+    def _on_auth(self, user_d):
+        if not user_d:
             raise HTTPError(500, "Twitter auth failed")
-        self.set_current_user(user)
+        self.set_current_user(user_d)
         self.redirect('/')
 
 
