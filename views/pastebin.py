@@ -70,6 +70,8 @@ class PasteHandler(BaseHandler):
     def get(self, pbkey=None):
         if pbkey: paste = Paste(**self._bag[pbkey])
         else: paste = None
+        if self.get_argument('raw', False):
+            return self.write(paste.text)
         self.render('pastebin.html', paste=paste,  langs=langlist)
 
     def post(self, pbkey=None):
