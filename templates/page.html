@@ -34,7 +34,7 @@ page{% if page %}: {{ page.title }} {% end %}
 
 <div>
   {% if current_user %}
-    <a href="/page/{{ page.slug }}/edit">edit this page</a>
+    <a href="/pages/{{ page.slug }}/edit">edit this page</a>
   {% else %}
     <a href="/auth/">login to edit this page</a>
   {% end %}

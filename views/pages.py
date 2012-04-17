@@ -29,7 +29,7 @@ class AllPages(PageBase):
         self.render('pages_all.html', pages=pages)
 
 
-@route('/page/?(?P<pkey>[a-zA-Z0-9_]*)')
+@route('/pages/?(?P<pkey>[a-zA-Z0-9_]*)')
 class PageView(PageBase):
 
     def get(self, pkey=None):
@@ -39,7 +39,7 @@ class PageView(PageBase):
         self.render('page.html', page_authors=self._book.page_authors(pkey), page = p_)
 
 
-@route('/page/(?P<pkey>[a-zA-Z0-9_]+)/edit/?')
+@route('/pages/(?P<pkey>[a-zA-Z0-9_]+)/edit/?')
 class PageEdit(PageBase):
 
     @tornado.web.authenticated
