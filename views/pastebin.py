@@ -71,6 +71,8 @@ class PasteHandler(BaseHandler):
         if pbkey: paste = Paste(**self._bag[pbkey])
         else: paste = None
         if self.get_argument('raw', False):
+            # self.content_type = 'text/plain'
+            self.set_header("Content-Type", "text/plain")
             return self.write(paste.text)
         self.render('pastebin.html', paste=paste,  langs=langlist)
 
