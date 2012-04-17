@@ -71,7 +71,7 @@ class PageEdit(PageBase):
                 cr_avatar = ca,
                 owner_only = only,
                 )
-        self.redirect('/page/{}'.format(slug))
+        self.redirect('/pages/{}'.format(slug))
 
 
 
