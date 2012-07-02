@@ -9,7 +9,7 @@ settings = dict(
     dbpages = None,  # BAD! Stores in MEMORY
 
     port = 6488,
-    login_url="/auth/login",
+    login_url="/auth",
     static_path = path.join(path.dirname(__file__), "static"),
     template_path = path.join(path.dirname(__file__), "templates"),
     cookie_secret = None, # set in settings_local.settings

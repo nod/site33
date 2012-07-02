@@ -35,8 +35,12 @@ class PageView(PageBase):
     def get(self, pkey=None):
         p_ = self._page(pkey)
         if not p_:
-            return self.redirect('/page/{}/edit'.format(pkey))
-        self.render('page.html', page_authors=self._book.page_authors(pkey), page = p_)
+            return self.redirect('/pages/{}/edit'.format(pkey))
+        self.render(
+            'page.html',
+            page_authors=self._book.page_authors(pkey),
+            page = p_
+            )
 
 
 @route('/pages/(?P<pkey>[a-zA-Z0-9_]+)/edit/?')
