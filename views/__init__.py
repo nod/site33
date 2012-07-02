@@ -14,6 +14,11 @@ import tmp
 @route('.*')
 class Handle404(BaseHandler):
     def get(self):
+
+
+        print dir(request)
+
+
         self.redirect('/static/lost.html')
 
 
