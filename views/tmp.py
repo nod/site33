@@ -23,6 +23,7 @@ class TmpHandler(BaseHandler):
 @route('/tmp/up')
 class TmpUpHandler(BaseHandler):
     def post(self):
+        randname = self.get_argument('random', False)
         hum = self.get_argument('human','')
         is_json = self.get_argument('json', False)
         if not human.verify(hum):
@@ -32,9 +33,12 @@ class TmpUpHandler(BaseHandler):
         dest_dir = '/data/sites/33ad.org/tmpdown/%s' % tmp_
         mkdir(dest_dir)
         parts = self.get_argument('upfile_name', 'uploaded.file').split('.')
-        if len(parts) > 1:
-            fname = slugify(''.join(parts[:-1])) + "." + slugify(parts[-1])
-        else: fname = slugify(parts[0])
+        if randname:
+            fname = gen_key() + slugify(parts[-1])
+        else:
+            if len(parts) > 1:
+                fname = slugify(''.join(parts[:-1])) + "." + slugify(parts[-1])
+            else: fname = slugify(parts[0])
         move(self.get_argument('upfile_path'), '%s/%s' % (dest_dir, fname))
 
         fileuri = "https://33ad.org/tmp/%s/%s" % (tmp_, fname)
