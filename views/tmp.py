@@ -34,7 +34,7 @@ class TmpUpHandler(BaseHandler):
         mkdir(dest_dir)
         parts = self.get_argument('upfile_name', 'uploaded.file').split('.')
         if randname:
-            fname = gen_key() + slugify(parts[-1])
+            fname = '{}.{}'.format(gen_key(), slugify(parts[-1]))
         else:
             if len(parts) > 1:
                 fname = slugify(''.join(parts[:-1])) + "." + slugify(parts[-1])
