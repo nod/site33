@@ -7,8 +7,6 @@ from tornado.web import asynchronous, authenticated, HTTPError
 from . import route
 from .viewlib import BaseHandler
 
-
-
 @route('/auth/logout')
 class Logout(BaseHandler):
 
