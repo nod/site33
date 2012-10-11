@@ -2,90 +2,47 @@
 
 {% autoescape None %}
 
-{% block content-main %}
+{% block content-wide %}
 
+<h1> Miscellaneous Ramblings </h1>
+
+{% set postcount = 0 %}
+
+<div class="row">
+
+<div class="span6">
 {% for p in posts %}
 
-<div class="block-main">
+<div class="post-block">
 
-<h2 class="block-hdr">
-<div class="block-meta">
-    <div class="mon">{{p.c_at.strftime('%b')}}</div>
-    <div class="num">{{p.c_at.strftime('%d')}}</div>
-    <div class="year">{{p.c_at.year}}</div>
-    </div>
-<a href="/blog/{{ p.slug }}">{{p.title}}</a>
-</h2>
+  <h2>
+    <a href="/blog/{{ p.slug }}">{{p.title}}</a>
+    <small>{{p.c_at.strftime('%b%Y')}}</small>
+  </h2>
 
+<div class="blog-text">
 {{ markdown(p.text) }}
-
-<div class="block-ftr">
-<a href="/blog/{{ p.slug }}">direct link</a>
-<div class="tag-list">
-tags:
-{% for t in p.tags %}
-<a href="/blog/tag/{{t}}" class="tag">{{t}}</a>
-{% end %}
 </div>
+{% set postcount = postcount + 1 %}
 </div>
 
-</div>
 
+{% if postcount > 1 %}
+  {% set postcount = 0 %}
+  </div>
+  <div class="span4 ">
 {% end %}
 
 {% end %}
-
-{% block content-alt %}
-
-
-<div class="block-alt">
-<h3> Blog Tidbits  </h3>
-<ul>
-{% if tag_list %}
-<li> tags <br/>
-{% for t in tag_list %}<a href='/blog/tag/{{t}}' class="tag">{{t}}</a> {% end %}
-</li>
-{% end %}
-<li>posts <br>
-{% for y in year_list %}<a href='/blog/{{y}}'>{{y}}</a> {% end %}
-<a href="http://33ad.org/blog">all</a>
-</li>
-</ul>
 </div>
 
-
-<div class="block-alt">
-<h3> Projects </h3>
-<ul>
-<li><a href="http://github.com/nod/tornado_addons">
-    <span class="github">GITHUB</span>
-    Tornado Addons Project </a></li>
-<li><a href="http://github.com/nod/dotfiles">
-    <span class="github">GITHUB</span>
-    My portable dotfiles</a></li>
-<li><a href="https://gist.github.com/872761">
-    <span class="github">GITHUB</span>
-    pdb source highlighting</a></li>
-<li><a href="https://github.com/nod/controll">
-    <span class="github">GITHUB</span>
-    conTroll - con mgmt</a></li>
-</ul>
 </div>
 
-<div class="block-alt">
-<h4> miscellaneous </h4>
-<ul>
-{% if current_user %}
-  <li><a href="/blog/new"> New Post </a></li>
-{% else %}
-  <li><a href="/auth"> Login </a></li>
-{% end %}
-</ul>
+<div class="row">
+  <div class="offset2 span6">
+  <strong> <a href="/blog/">all the posts, ever</a> </strong>
+  </div>
 </div>
-</ul>
-</div>
-
-
 
 {% end %}
 

@@ -7,17 +7,37 @@ pastebin{% if paste %}:{{paste.key}} {{paste.hi}}{% end %}
 
 {% block content-wide %}
 
-<form method="POST">
+<style>
+  #human1 { display: none; }
+  #textpaste { width: 600px; height: 400px; }
+</style>
+
 <div class="block-main">
-<h2 class="block-hdr"> pastebin </h2>
+<form method="POST" class="form-inline">
+
+
+<div class="row">
+  <div class="span5"> <h1> pastebin </h1> </div>
+{% if paste %}
+  <div class="span4 alert alert-success">
+    pastebin location: <span>http://33ad.org/pb/{{paste.key}}</span>
+  </div>
+{% end %}
+</div>
 
 {% if paste %}
-<span class="pbloc">pastebin location http://33ad.org/pb/{{paste.key}}</span>
+<div class="row">
+  <div class="span10">
 <div id="pasted">
 {{ paste.display_text() }}
 </div>
+<div>created: {{ paste.c_at.strftime("%c") }}</div>
+  </div>
+</div>
 {% end %}
 
+<div class="row">
+  <div class="span10">
 <div class="optgroup">
 <span class="opt">
 <label for="hilite">Syntax highlighting?</label>
@@ -36,7 +56,7 @@ pastebin{% if paste %}:{{paste.key}} {{paste.hi}}{% end %}
 <input type="checkbox" name="human2" id="human2"/>
 </span>
 <span class="opt">
-<input type="submit" value="paste it." class="submit" id="pasteit"/>
+  <button type="submit" value="paste it." class="btn btn-primary" id="pasteit">paste it</button>
 </span>
 </div>
 
@@ -45,9 +65,8 @@ pastebin{% if paste %}:{{paste.key}} {{paste.hi}}{% end %}
 </form>
 </div>
 
-{% if paste %}
-<div>created: {{ paste.c_at }}</div>
-{% end %}
+  </div>
+</div>
 
 {% end %}
 

@@ -1,82 +1,124 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<!-- delete later -->
-<meta name="google-site-verification" content="59VKl-VFKKy9K1QOeExrbPLD7U3MiFHY12xoc1GtZVw" />
-<!-- end delete later -->
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<meta name="keywords" content="">
-<meta name="description" content="">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="personal website of Jeremy Kelley">
+<meta name="author" content="Jeremy Kelley">
+
 <title>{% block title %}{% end %} 33ad</title>
 
-<link href='http://fonts.googleapis.com/css?family=Nobile' rel='stylesheet' type='text/css'>
-
-<link rel="stylesheet" type="text/css" href="/static/css/reset-fonts-grids.css">
-<link rel="stylesheet" type="text/css" href="/static/css/base.css">
-<link rel="stylesheet" type="text/css" href="/static/css/site.css">
-{% block headcss %}{% end %}
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap.no-icons.min.css" rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/font-awesome/2.0/css/font-awesome.css" rel="stylesheet">
+<link href='//fonts.googleapis.com/css?family=Montserrat+Alternates:700' rel='stylesheet' type='text/css'>
 
 <link rel="stylesheet" type="text/css" href="/static/css/pygments-murphy.css"/>
 
+{% block headcss %}{% end %}
+
 <script type="application/javascript" src="/static/js/date.js"></script>
 <script type="application/javascript" src="/static/js/blogger.js"></script>
+
+<style>
+  html { height: 100%; margin: 0; }
+  body { height: 100%; }
+  h1 { margin-bottom: 30px; }
+	.logo33 { font-family: 'Montserrat Alternates', sans-serif; font-weight: bold; }
+	.big33 { font-size: 28px; }
+	.bigad { font-size: 16px; }
+  .push-down { margin-top: 60px; }
+  .wrapper {
+        min-height: 100%;
+        height: auto !important; /* ie7 fix */
+        height: 100%;
+        background-color: #fff;
+        margin: 0 auto -60px;
+  }
+  .wrapper > .container { padding-top: 60px; }
+  .push { height: 90px; clear: both; }
+  .ft { clear: both; background-color: #333; color: #fff; font-size: 80%; height: 100px; padding-top: 20px;}
+  .ft a { color: #fff; text-decoration: none; font-weight: bold; font-size: 110%;}
+  .ft a:hover {  text-decoration: underline;}
+  .post-block { margin-bottom: 50px; padding-bottom:15px; border-bottom: 1px solid #888; }
+</style>
 
 </head>
 
 <body>
 
-<div id="topbar" >
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
 
-<a href="/">home</a>
-<a href="/about">about</a>
-<a href="/pb">pastebin</a>
+<a class="logo33 brand" href="/">
+<span class="big33">33</span><span class="bigad">ad</span>
+</a>
 
+<ul class="nav">
+  <li><a href="/">home</a></li>
+  <li><a href="/projects">projects</a></li>
+  <li><a href="/pb">pastebin</a></li>
+  <li><a href="/about">about</a></li>
 {% if current_user %}
-<span class="hdr-logged-in">
-  <img src="{{ current_user.avatar }}" />
-  {{ current_user.nick }}
-  <a href="/auth/logout">[logout]</a>
-</span>
+  <li>
+    <span class="hdr-logged-in">
+      <img src="{{ current_user.avatar }}" />
+      {{ current_user.nick }}
+      <a href="/auth/logout">[logout]</a>
+    </span></li>
 {% end %}
+</ul>
 
-</div>
-
-
-<div id="doc" class="yui-t5">
-
-	<div id="hd">
-
-<div class="content-top">
-<a id="logo33" href="/"> 33ad </a>
-<div id="twitter_nod">
-<ul id="twitter_status_nod"></ul>
-</div>
-</div>
-
-	</div>
-
-  <div id="bd">
-    <div id="yui-main">
-
-    {% block content-wide %}
-      <div class="yui-b">
-<div class="content-main">
-{% block content-main %}{% end %}
-</div>
-      </div>
     </div>
-    <div class="yui-b">
+  </div>
+</div>
+
+<div class="wrapper">
+<div class="container">
+
+<div class="row">
+<div class="span10 offset1">
+  {% block content-wide %}
+    <div class="span8">
+{% block content-main %}{% end %}
+    </div>
+    <div class="span2">
 {% block content-alt %}{% end %}
     </div>
-    {% end %}
-  </div>
-  <div id="ft">
+  {% end %}
+</div>
+  <div class="push"> </div>
+</div>
+</div><!-- container -->
+
+<div class="ft">
+  <div class="container">
+<div class="row">
+  <div class="span4 offset1">
+  These thoughts are my own, unless they're yours.  And if they're yours, we
+  may have metaphysical problems beyond simple concept ownership and should
+  probably talk soon.
 {% block content-footer %}{% end %}
   </div>
+
+  <div class="span4 offset1">
+    <div class="row">
+      <ul class="unstyled">
+        <li> <a href="/blog">articles</a> </li>
+        <li> <a href="/projects">miscellaneous projects</a> </li>
+        <li> <a href="/about">about 33ad</a> </li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
 </div>
 
+</div><!-- wrapper -->
 
-<script type="application/javascript" src="http://search.twitter.com/search.json?q=from%3anod&rpp=1&callback=formatTweets" ></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/js/bootstrap.min.js"></script>
 
 </body>
 </html>

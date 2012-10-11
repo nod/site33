@@ -1,6 +1,6 @@
 
 from viewlib import BaseHandler
-from tornroutes import route
+from tornroutes import route, generic_route
 
 # import time side effects ftw. importing the modules creates our routes
 import auth
@@ -10,6 +10,7 @@ import pages
 import pastebin
 import tmp
 
+generic_route('/projects/?', 'projects.html')
 
 @route('.*')
 class Handle404(BaseHandler):

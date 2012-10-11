@@ -54,7 +54,7 @@ class Paste(object):
 class AllHandler(BaseHandler):
 
     def prepare(self):
-        self._bag = DataBag(self.application.settings['dbpaste'])
+        self._bag = DataBag('DataBag', self.application.settings['dbpaste'])
 
     def get(self):
         pastes = (Paste(**d) for k,d in self._bag.by_created())
@@ -65,7 +65,7 @@ class AllHandler(BaseHandler):
 class PasteHandler(BaseHandler):
 
     def prepare(self):
-        self._bag = DataBag(self.application.settings['dbpaste'])
+        self._bag = DataBag('DataBag', self.application.settings['dbpaste'])
 
     def get(self, pbkey=None):
         if pbkey: paste = Paste(**self._bag[pbkey])

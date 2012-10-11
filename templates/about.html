@@ -2,27 +2,26 @@
 
 {% autoescape None %}
 
-{% block content-main %}
-<div class="block-main">
-<h2 class="block-hdr"> Why 33ad? </h2>
-{{ about_text }}
-</div>
+{% block content-wide %}
 
-<div class="block-main">
-<h2 class="block-hdr"> Who is nod/jeremy? </h2>
+<div class="row">
+
+  <div class="span5">
+    <h1 > Why 33ad? </h1>
+{{ about_text }}
+  </div>
+
+  <div class="offset1 span4">
+
+<h2> Who is jeremy? </h2>
 
 <p>
 Jeremy Kelley is a simple guy living around Austin, TX. He loves his
 gorgeous wife, his beautiful children, hacking on software, and God.  In the
-past, he has worked at <a href="http://ibm.com">IBM</a> and <a
-href="http://cert.org">CERT/CC</a> on security and malware but now he has more
-fun building code than breaking it.
-</p>
-
-<p>
-His current nerd-passion is <a href="http://snoball.com">snoball.com</a>.
-He's a co-founder and the ceo of this awesome company that helps people give
-small amounts to charities that add up to a huge difference.
+past, he helped found <a href="https://snoball.com/">Snoball</a>.  He has
+worked at <a href="http://ibm.com">IBM</a> and
+<a href="http://cert.org">CERT/CC</a> on security and malware but now he has
+more fun building code than breaking it.
 </p>
 
 <p>
@@ -35,6 +34,7 @@ Scientist and on large scale data understanding related issues.  </p>
 <em>ps - he feels weird writing about himself in the 3rd person</em>
 </p>
 
+
 <h3>What's with nod?</h3>
 <p>
 Jeremy adopted the name "nod" years ago on
@@ -45,14 +45,14 @@ random search of <a href="http://world.std.com/~reinhold/diceware.html">the
 diceware list</a> yielded "nod" and it just stuck.
 </p>
 
-</div>
-{% end %}
+  </div>
+</div><!-- row -->
 
-{% block content-alt %}
+<div class="row">
 
-<div class="block-alt">
+  <div class="span5">
 <h3> Read more on year 33 </h3>
-<ul>
+<ul class="unstyled">
 <li><a href="http://en.wikipedia.org/wiki/33">
     Wikipedia's page on Year 33 </a></li>
 <li><a href="http://www.the-latter-rain.com/christ.html">
@@ -60,15 +60,18 @@ diceware list</a> yielded "nod" and it just stuck.
 </ul>
 </div>
 
-<div class="block-alt">
+  <div class="span4 offset1">
+
 <h3> Other links for Jeremy </h3>
-<ul>
+<ul class="unstyled">
 <li><a href="http://www.linkedin.com/pub/jeremy-kelley/0/8b5/686">
     Jeremy on LinkedIn </a></li>
 <li><a href="http://www.twitter.com/nod">
    Jeremy's Twitter Page</a></li>
 </ul>
-</div>
+
+  </div>
+</div><!-- row -->
 
 {% end %}
 

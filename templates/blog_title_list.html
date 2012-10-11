@@ -4,37 +4,23 @@
 
 {% block content-wide %}
 
-<div class="block-main">
+<h1> {{ title }} </h1>
 
-<h2 class="block-hdr">
-{{ title }}
-</h2>
-
+<ul class="unstyled">
 
 {% set old_year = 0 %}
 {% for p in posts %}
 
 {% if p.c_at.year != old_year %}
 {% set old_year = p.c_at.year %}
-<h3> {{ old_year }} </h3>
+<li> <h3> {{ old_year }} </h3> </li>
 {% end %}
 
-
-<div>
-<a href="/blog/{{ p.slug }}">{{p.title}}</a>
-
-{% if p.tags %}
-tags:
-{% for t in p.get('tags',[]) %}
-<a href="/blog/tag/{{t}}" class="tag">{{t}}</a>
-{% end %}
-{% end %}
-
-</div>
+<li> <a href="/blog/{{ p.slug }}">{{p.title}}</a> </li>
 
 {% end %}
 
-</div>
+</ul>
 
 {% end %}
 
