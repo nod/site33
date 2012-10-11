@@ -82,8 +82,8 @@ class DataBagCollection(object):
 
     def __init__(self, fpath, tblname=None, versioned=False, history=10):
         self._db = DataBag(
-                    fpath,
                     tblname or 'dbc',
+                    fpath,
                     versioned=versioned,
                     history=history
                     )

@@ -7,7 +7,7 @@ from . import bloglib
 class TestBlogLib(unittest.TestCase):
 
     def setUp(self):
-        self.blog = bloglib.Blog(':memory:')
+        self.blog = bloglib.Blog(fpath=':memory:')
         self.slug, self.post = self.blog.new_post(
             'post title',
             'blah blah blah',
