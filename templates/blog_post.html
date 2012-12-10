@@ -7,10 +7,10 @@
 {% block headextra %}
 <meta property="og:type" content="article" />
 <meta name="twitter:card" value="summary">
-<meta property="og:title" content="{{ post.title }}" />
-<meta name="twitter:title" value="{{ post.title }}">
-<meta property="og:description" content="{{ post.text[:200] }}" />
-<meta property="twitter:description" content="{{ post.text[:200] }}" />
+<meta property="og:title" content="{{ post.title.replace('"', '\"') }}" />
+<meta name="twitter:title" value="{{ post.title.replace('"', '\"') }}">
+<meta property="og:description" content="{{ post.text[:200].replace('"', '\"') }}" />
+<meta property="twitter:description" content="{{ post.text[:200].replace('"', '\"') }}" />
 <meta property="og:url" content="https://33ad.org/blog/{{ post.slug }}" />
 <meta property="twitter:url" content="https://33ad.org/blog/{{ post.slug }}" />
 {% end %}
