@@ -3,6 +3,8 @@ from os import path
 # tornado specific
 settings = dict(
 
+    users = {},
+
     blog_admin = None,
     dbposts = None,  # BAD! Stores in MEMORY
     dbpaste = None,  # BAD! Stores in MEMORY

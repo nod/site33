@@ -20,6 +20,17 @@ def hashint(num):
     return sign + result
 
 
+def hash_val(val):
+    import hashlib
+    return hashlib.md5(val.lower().strip()).hexdigest()
+
+
+def avatar_url(email):
+    eml = hash_val(email)
+    print "EML is", eml
+    return 'http://www.gravatar.com/avatar/{}?s=200'.format(eml)
+
+
 def gen_key():
     return hashint(abs(randint(100,90000)))
 

@@ -5,7 +5,7 @@ import tornado.web
 from tornado.escape import xhtml_escape as html_escape
 
 from pagelib import Book
-from useful import gen_key
+from useful import gen_key, avatar_url
 from viewlib import BaseHandler
 from . import route
 
@@ -20,6 +20,7 @@ class PageBase(BaseHandler):
         if pkey in ('__new__', None):
             return None
         return self._book.page(pkey) if pkey in self._book else None
+
 
 @route('/pages/__all')
 class AllPages(PageBase):

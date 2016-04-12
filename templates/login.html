@@ -11,7 +11,7 @@ If you don't have an account, you probably don't need one.  This is just for uti
 </p>
 
 <p>
-You can try to login with Twitter if you'd like, but it won't do much for ya.
+You can try to login, but it's probably not worth it.
 </p>
 </div>
 
@@ -20,9 +20,17 @@ You can try to login with Twitter if you'd like, but it won't do much for ya.
 {% block content-alt %}
 
 <div style="padding-top: 100px;">
-
-<a class="sign_in_with_twitter" href="/auth/twitter"></a>
-
+<form class="form-inline" method="POST">
+  <div class="form-group">
+    <label class="sr-only" for="exampleInputEmail3">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Enter email" name="email">
+  </div>
+  <div class="form-group">
+    <label class="sr-only" for="exampleInputPassword3">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword3" placeholder="Password" name="password">
+  </div>
+  <button type="submit" class="btn btn-primary">Sign in</button>
+</form>
 </div>
 
 

@@ -15,8 +15,9 @@ class BlogBase(BaseHandler):
         self.blog = Blog( self.application.settings.get('dbposts') )
 
     def require_admin(self):
-        if not self.current_user.is_admin:
+        if not self.current_user:
             raise HTTPError(301)
+
 
 @route(r'/blog/?(?P<year>\d{4})?$')
 class BlogList(BlogBase):
@@ -109,7 +110,7 @@ class BlogPostEdit(BlogBase):
         self.redirect('/blog/%s' % slug)
 
 
-@route(r'/blog/(?P<key>[a-zA-Z0-9-_]+)/?$')
+@route(r'/blog/(?P<key>[a-zA-Z0-9-_]+)/?')
 class BlogPost(BlogBase):
     def get(self, key):
         self.render('blog_post.html', post=self.blog.post(key))

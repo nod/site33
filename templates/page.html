@@ -18,13 +18,13 @@ page{% if page %}: {{ page.title }} {% end %}
 </div>
 
 <div>
-  this version created: {{ page.c_at }} by <img src="{{page.cr_avatar}}" height="18"/> {{ page.cr_name }}
+  this version created: {{ page.c_at }} by <img src="{{page.cr_avatar}}" style="height:18px"/> {{ page.cr_name }}
 </div>
 
 <div>
   authors include:
   {% for nm,av in page_authors %}
-    <a href="http://twitter.com/#!/{{nm}}"><img src="{{av}}" height="16"/>{{nm}}</a>
+    <a href="http://twitter.com/#!/{{nm}}"><img src="{{av}}" style="height:16px"/>{{nm}}</a>
   {% end %}
 </div>
 

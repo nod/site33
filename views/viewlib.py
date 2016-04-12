@@ -4,20 +4,21 @@ import json
 import tornado.web
 from markdown import Markdown
 
+from useful import avatar_url
 
 class User(object):
     """
     convenience object to make it easy to unify login settings
     """
-    def __init__(self, nick, name, avatar, source, is_admin=False):
-        self.nick = nick # short name
-        self.name = name # long name
-        self.avatar = avatar # url to their avatar
-        self.source = source # str giving hint. twitter? local? etc
-        self.is_admin = is_admin
+    def __init__(self, email):
+        self.nick = email.split('@')[0]
+        self.email = email
+        print "END USER"
+        self.avatar = avatar_url(email)
+        self.source = 'local' # str giving hint. twitter? local? etc
 
     def uniq_id(self):
-        return '{}::{}'.format(self.source, self.nick)
+        return '{}::{}'.format(self.source, self.email)
 
 
 class BaseHandler(tornado.web.RequestHandler):
@@ -31,26 +32,15 @@ class BaseHandler(tornado.web.RequestHandler):
         return super(BaseHandler, self).render_string(
             templ,
             markdown=Markdown(['codehilite']).convert,
+            current_user=self.current_user,
             **kwa
-            )
-
-    def _instantiate_user(self, d):
-        """
-        accepts a twitter oauth'd user object and builds a User
-        """
-        return User(
-            d['username'],
-            d.get('name', d['username']),
-            d.get('profile_image_url', '/static/images/dunno.png'),
-            'twitter',
-            d['username'] in self.application.settings.get(
-                'twitter_admins', [] )
             )
 
     def get_current_user(self):
         try:
-            u_ = json.loads(self.get_secure_cookie("authed_user"))
-            return self._instantiate_user(u_) if u_ else None
+            u_ = self.get_secure_cookie("authed_user")
+            u = User(u_) if u_ else None
+            return u
         except TypeError:
             pass
 
@@ -59,10 +49,12 @@ class BaseHandler(tornado.web.RequestHandler):
         to be called AFTER the user has authenticated successfully.  Right now
         we assume it's twitter auth.
 
-        `user` should be a dictionary returned from successful oauth
+        `user` should be an email addr or None
         """
-        u_ = json.dumps(user)
-        self.set_secure_cookie("authed_user", u_)
+        if user is not None:
+      	    self.set_secure_cookie("authed_user", user)
+        else:
+            self.clear_cookie('authed_user')
 
     def ok(self, data=None):
         self.write(json.dumps({'status':'ok', 'data':data}))
