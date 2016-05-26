@@ -27,20 +27,24 @@ class TmpUpHandler(BaseHandler):
         hum = self.get_argument('human','')
         is_json = self.get_argument('json', False)
         if not human.verify(hum):
-            self.write(json_dumps('fail'))
-            return
+            return self.write('fail')
         tmp_ = gen_key()
-        dest_dir = '/data/sites/33ad.org/tmpdown/%s' % tmp_
+        dest_dir = '{}/{}'.format(
+            self.application.settings.get('tmpdown'),
+            tmp_ )
         mkdir(dest_dir)
-        parts = self.get_argument('upfile_name', 'uploaded.file').split('.')
+        fff = self.request.files['upfile'][0]
+        fn = fff['filename']
+        parts = (fn or 'up.file').split('.')
         if randname:
             fname = '{}.{}'.format(gen_key(), slugify(parts[-1]))
         else:
             if len(parts) > 1:
                 fname = slugify(''.join(parts[:-1])) + "." + slugify(parts[-1])
             else: fname = slugify(parts[0])
-        move(self.get_argument('upfile_path'), '%s/%s' % (dest_dir, fname))
-
+        fh = open('{}/{}'.format(dest_dir, fname), 'wb')
+        fh.write(fff['body'])
+        fh.close()
         fileuri = "https://33ad.org/tmp/%s/%s" % (tmp_, fname)
 
         if is_json:

@@ -11,6 +11,8 @@
 settings_local.py
 build
 
+pub
+
 *.pyc
 *.sqlite3
 *.db

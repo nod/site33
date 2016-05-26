@@ -6,7 +6,7 @@ from tornado.escape import xhtml_escape as html_escape
 
 from pagelib import Book
 from useful import gen_key, avatar_url
-from viewlib import BaseHandler
+from viewlib import BaseHandler, User
 from . import route
 
 
@@ -47,7 +47,6 @@ class PageView(PageBase):
 @route('/pages/(?P<pkey>[a-zA-Z0-9_]+)/edit/?')
 class PageEdit(PageBase):
 
-    @tornado.web.authenticated
     def get(self, pkey=None):
         self.render(
                 'page_edit.html',
@@ -55,8 +54,15 @@ class PageEdit(PageBase):
                 page = self._page(pkey)
                 )
 
-    @tornado.web.authenticated
     def post(self, pkey=None):
+	page_edit_pass = self.application.settings['page_edit_passwd']
+        if self.current_user:
+            uu = self.current_user
+        elif self.get_argument('password') == page_edit_pass:
+            uu = User('guest@example.com')
+        else:
+            return self.finish("bzzt. i don't know you.  wrong password?")
+
         page = self._page(pkey)
 
         title = self.get_argument('title')
@@ -66,7 +72,7 @@ class PageEdit(PageBase):
         tags = [self.clean(t.strip()) for t in tags_.split(',')]
         only = self.get_argument('only', False)
 
-        cn,ca = self.current_user.nick, self.current_user.avatar
+        cn,ca = uu.nick, uu.avatar
         self._book.new_page(
                 title = title,
                 text = text,

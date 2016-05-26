@@ -19,10 +19,10 @@ settings = dict(
     debug = False,
     debug_pdb = False,
 
-    twitter_admins = [],
-    twitter_consumer_secret = None,
-    twitter_consumer_key = None,
-    twitter_cb_uri = 'http://localhost:6488/auth/twitter',
+    page_edit_passwd = 'CHANGE THIS',
+
+    tmpdown = '/tmp',
+
     )
 
 try:
