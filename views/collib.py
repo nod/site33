@@ -6,15 +6,15 @@ from datetime import datetime
 from iso8601 import parse_date, ParseError as DateParseError
 from databag import DataBag
 
-from useful import slugify
+from .useful import slugify
 
 
 class DataBagMember(object):
 
     def __init__(self, slug, c_at=None, tags=None, **kwa):
 
-        if not isinstance(slug, basestring):
-            raise ValueError('slug is required and must be basestring')
+        if not isinstance(slug, str):
+            raise ValueError('slug is required and must be str')
 
         if tags and not hasattr(tags, '__iter__'):
             raise ValueError('tags is not one of: list, tuple, set')
@@ -112,14 +112,14 @@ class DataBagCollection(object):
             tags.update(p.tags)
         return (
             sorted(years, reverse=True),
-            sorted(tags, cmp=lambda x,y: cmp(x.lower(), y.lower()))
+            sorted(tags, key=lambda x:x.lower())
             )
 
     def _sorted_members(self, iter):
         return sorted(
             iter,
-            cmp = lambda x,y: cmp(x.c_at, y.c_at),
-            reverse = True
+            key=lambda x:x.c_at,
+            reverse=True
             )
 
     def all_members(self, year=None):

@@ -1,16 +1,18 @@
 
-from viewlib import BaseHandler
+from .viewlib import BaseHandler
 from tornroutes import route, generic_route
 
 # import time side effects ftw. importing the modules creates our routes
-import auth
-import about
-import blog
-import pages
-import pastebin
-import tmp
+from . import auth
+from . import about
+# from . import blog
+from . import pages
+from . import pastebin
+from . import tmp
+from . import pagelib
 
-generic_route('/projects/?', 'projects.html')
+generic_route('/', 'empty_home.html')
+
 
 @route('.*')
 class Handle404(BaseHandler):
@@ -18,7 +20,7 @@ class Handle404(BaseHandler):
         # self.request.path
 
         # let's look in the pages book to see if this page exists
-        from pagelib import Book
+        Book = pagelib.Book
         _book = Book(self.application.settings['dbpages'])
 
         page_maybe = self.request.path[1:]

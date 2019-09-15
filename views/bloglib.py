@@ -5,8 +5,8 @@ from datetime import datetime
 
 from iso8601 import parse_date
 
-from useful import slugify
-from collib import DataBagCollection, DataBagMember
+from .useful import slugify
+from .collib import DataBagCollection, DataBagMember
 
 
 class BlogPost(DataBagMember):

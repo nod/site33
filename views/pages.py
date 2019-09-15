@@ -4,9 +4,9 @@ from datetime import datetime
 import tornado.web
 from tornado.escape import xhtml_escape as html_escape
 
-from pagelib import Book
-from useful import gen_key, avatar_url
-from viewlib import BaseHandler, User
+from .pagelib import Book
+from .useful import gen_key, avatar_url
+from .viewlib import BaseHandler, User
 from . import route
 
 
@@ -55,7 +55,7 @@ class PageEdit(PageBase):
                 )
 
     def post(self, pkey=None):
-	page_edit_pass = self.application.settings['page_edit_passwd']
+        page_edit_pass = self.application.settings['page_edit_passwd']
         if self.current_user:
             uu = self.current_user
         elif self.get_argument('password') == page_edit_pass:

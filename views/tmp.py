@@ -3,9 +3,9 @@ from json import dumps as json_dumps
 from os import mkdir
 from shutil import move
 
-import human_checks as human
-from useful import gen_key, slugify
-from viewlib import BaseHandler
+from . import human_checks as human
+from .useful import gen_key, slugify
+from .viewlib import BaseHandler
 
 from . import route
 
@@ -54,6 +54,4 @@ class TmpUpHandler(BaseHandler):
                 'tmp_done.html',
                 fileuri = fileuri,
                 )
-
-
 

@@ -22,12 +22,11 @@ def hashint(num):
 
 def hash_val(val):
     import hashlib
-    return hashlib.md5(val.lower().strip()).hexdigest()
+    return hashlib.md5(val.lower().strip().encode('utf-8')).hexdigest()
 
 
 def avatar_url(email):
     eml = hash_val(email)
-    print "EML is", eml
     return 'http://www.gravatar.com/avatar/{}?s=200'.format(eml)
 
 
@@ -45,10 +44,8 @@ def slugify(value):
     From Django's "django/template/defaultfilters.py".
     """
     import unicodedata
-    if not isinstance(value, unicode):
-        value = unicode(value)
     value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore')
-    value = unicode(_slugify_strip_re.sub('', value).strip().lower())
+    value = _slugify_strip_re.sub('', value.decode()).strip().lower()
     return _slugify_hyphenate_re.sub('-', value)
 
 

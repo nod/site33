@@ -24,13 +24,13 @@ small_list = {
     }
 
 def build_list():
-    big_ = choice(big_list.keys())
+    big_ = choice([x for x in big_list.keys()])
     tmp = { big_: big_list[big_] }
     while len(tmp) < 5:
-        lil_ = choice(small_list.keys())
+        lil_ = choice([x for x in small_list.keys()])
         if lil_ not in tmp:
             tmp[lil_] = small_list[lil_]
-    tmp_ = [ (k,v) for k,v in tmp.iteritems() ]
+    tmp_ = [ (k,v) for k,v in tmp.items() ]
     shuffle(tmp_)
     return tmp_
 

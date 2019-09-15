@@ -2,7 +2,7 @@
 import json
 
 from tornado.auth import TwitterMixin
-from tornado.web import asynchronous, authenticated, HTTPError
+from tornado.web import authenticated, HTTPError
 
 from . import route
 from .viewlib import BaseHandler

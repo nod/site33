@@ -10,6 +10,7 @@ import tornado.web
 from settings import settings
 from views import routes
 
+
 def start_instance(settings, routes):
     app = tornado.web.Application(routes, **settings)
     http_server = tornado.httpserver.HTTPServer(app)
@@ -31,7 +32,7 @@ if __name__ == "__main__":
         fmt_ = "    %%-%ds => %%s" % L
         for r in routes:
             c = r.handler_class
-            print fmt_ % (r._path, ".".join((c.__module__, c.__name__)))
+            print(fmt_.format(r._path, ".".join((c.__module__, c.__name__))))
         sys.exit(0)
     elif options.port:
         try: settings['port'] = int(options.port)
@@ -39,5 +40,5 @@ if __name__ == "__main__":
     elif args:
         try: settings['port'] = int(args[0])
         except: pass
-    print "starting Tornado on port", settings['port']
+    print("starting Tornado on port", settings['port'])
     start_instance(settings, routes)

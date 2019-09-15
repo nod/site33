@@ -1,0 +1,15 @@
+{% extends base.html %}
+{% autoescape None %}
+
+{% block title %}
+all the pages
+{% end %}
+
+{% block content-wide %}
+
+{% for p in pages %}
+<div> {{ p.title }} / {{ p.slug }} </div>
+{% end %}
+
+{% end %}
+

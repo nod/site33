@@ -4,16 +4,16 @@ import json
 import tornado.web
 from markdown import Markdown
 
-from useful import avatar_url
+from .useful import avatar_url
 
 class User(object):
     """
     convenience object to make it easy to unify login settings
     """
+
     def __init__(self, email):
         self.nick = email.split('@')[0]
         self.email = email
-        print "END USER"
         self.avatar = avatar_url(email)
         self.source = 'local' # str giving hint. twitter? local? etc
 
@@ -31,7 +31,7 @@ class BaseHandler(tornado.web.RequestHandler):
     def render_string(self, templ, **kwa):
         return super(BaseHandler, self).render_string(
             templ,
-            markdown=Markdown(['codehilite']).convert,
+            markdown=Markdown(extensions=['codehilite']).convert,
             current_user=self.current_user,
             **kwa
             )

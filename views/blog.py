@@ -4,8 +4,8 @@ from datetime import datetime
 from tornado.web import HTTPError, authenticated
 
 from . import route
-from viewlib import BaseHandler
-from bloglib import Blog
+from .viewlib import BaseHandler
+from .bloglib import Blog
 
 
 class BlogBase(BaseHandler):

@@ -6,8 +6,8 @@ from datetime import datetime
 from iso8601 import parse_date
 from databag import DataBag
 
-from collib import DataBagCollection, DataBagMember
-from useful import slugify
+from .collib import DataBagCollection, DataBagMember
+from .useful import slugify
 
 
 class Page(DataBagMember):
@@ -65,6 +65,9 @@ class Book(DataBagCollection):
 
     def page(self, slug):
         return self.member(slug)
+
+    def pages(self):
+        return [p for p in self]
 
     def page_authors(self, slug):
         """

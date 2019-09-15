@@ -1,6 +1,6 @@
 
 from markdown import Markdown
-from viewlib import BaseHandler
+from .viewlib import BaseHandler
 from . import route
 
 about_text = """
