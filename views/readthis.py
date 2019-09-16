@@ -27,6 +27,7 @@ create table if not exists rt (
     url text,
     tags text,
     text text,
+    context text,
     ts text
 ) ''' )
 
@@ -45,8 +46,7 @@ create table if not exists rt (
 
 
 @route(r'/readthis/?$')
-class ReadListCatcher(RTBase):
-
+class ReadListIncoming(RTBase):
 
     # XXX STILL NEEDS TO CHECK AUTH HEADER
     def post(self):
@@ -70,14 +70,22 @@ values (?, ?, ?, ?, ?, ?) ''',
 @route(r'/readthis/?(?P<user>\w+)?$')
 class ReadList(RTBase):
 
-    def get(self, user=None):
+    def get(self, user):
         c = self._dbconn.cursor()
         print("FETCHING links for ", user)
-        c.execute(
-            '''select url, tags, ts, uid, text
-               from rt where nick=? order by ts desc''',
-            (user,) )
-        rows = [ ObjectDict(text=r[4], uid=r[3], url=r[0], tags=r[1], ts=r[2])
+        if user == 'all':
+            # get them all
+            c.execute(
+                '''select url, tags, ts, uid, text, nick
+                from rt order by ts desc limit 250''' )
+        else:
+            c.execute(
+                '''select url, tags, ts, uid, text, nick
+                from rt where nick=? order by ts desc limit 250''',
+                (user,) )
+        rows = [
+            ObjectDict(nick=r[5], text=r[4], uid=r[3], url=r[0], tags=r[1],
+                       ts=r[2] )
             for r in c ]
         print("FOUND links:", rows)
         self.render(

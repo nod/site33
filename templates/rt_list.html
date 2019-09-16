@@ -9,7 +9,8 @@
 <div class="row">
 {% for p in links %}
 <div >
-	<a href="{{p.url}}">{{p.url}}</a> {{p.ts}}
+	<a href="{{p.url}}">{{p.url}}</a> <br/>
+	{{p.ts}} by {{p.nick}}
 	<blockquote>{{p.text}}</blockquote>
 </div>
 {% end %}
