@@ -41,4 +41,5 @@ if __name__ == "__main__":
         try: settings['port'] = int(args[0])
         except: pass
     print("starting Tornado on port", settings['port'])
+    settings['debug'] = True
     start_instance(settings, routes)

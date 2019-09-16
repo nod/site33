@@ -4,6 +4,7 @@ from tornroutes import route, generic_route
 
 # import time side effects ftw. importing the modules creates our routes
 from . import auth
+from . import readthis
 from . import about
 # from . import blog
 from . import pages

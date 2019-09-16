@@ -1,0 +1,19 @@
+{% extends base.html %}
+
+{% autoescape None %}
+
+{% block content-wide %}
+
+<h1> read this list for {{nick}}</h1>
+
+<div class="row">
+{% for p in links %}
+<div >
+	<a href="{{p.url}}">{{p.url}}</a> {{p.ts}}
+	<blockquote>{{p.text}}</blockquote>
+</div>
+{% end %}
+</div>
+
+{% end %}
+
